@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
 import "./config/layout-color.scss";
-import reportWebVitals from "./reportWebVitals";
 import { Store } from "./helpers/store";
 import { Provider } from "react-redux";
 import Router from "./config/router";
@@ -13,5 +12,3 @@ root.render(
     <Router />
   </Provider>
 );
-
-reportWebVitals();
