@@ -1,24 +1,24 @@
 {
-  "name": "painel-adm",
+  "name": "base-component",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@base/components": "git+https://github.com/davirmrm/projeto-base-component.git",
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
-    "axios": "^0.27.2",
-    "dotenv": "^16.0.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "axios": "^1.3.4",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "5.1.2",
     "react-scripts": "5.0.1",
     "redux-logger": "^3.0.6",
     "redux-multi": "^0.1.12",
-    "redux-thunk": "^2.4.1",
-    "sass": "^1.53.0"
+    "redux-thunk": "^2.4.2",
+    "sass": "^1.59.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,8 +45,8 @@
     ]
   },
   "devDependencies": {
-    "react-redux": "^8.0.2",
-    "redux": "^4.2.0",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.8"
   }
 }
