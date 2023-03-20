@@ -1,16 +1,14 @@
-export * from './alert/alert'
-export * from './portal/portal'
-export * from './useOusideClick/useoutsideclick'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.scss";
+import "./config/layout-color.scss";
+import { Store } from "./helpers/store";
+import { Provider } from "react-redux";
+import Router from "./config/router";
 
-export * from './validation/Validation'
-
-export * from './button/button'
-export * from './form/form'
-export * from './icon/icon'
-export * from './list/list'
-export * from './loading/loading'
-export * from './menu/menu'
-export * from './modal/modal'
-export * from './pagination/pagination'
-export * from './sidebar/modalRight'
-export * from './tab/tab'
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <Provider store={Store}>
+    <Router />
+  </Provider>
+);
