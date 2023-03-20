@@ -1,9 +1,8 @@
 import React, { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import { history } from '../../helpers/history';
 import './menu.scss';
 
-export const Menu = ({ children, data, action = () => null, cy='' }) => {
+export const Menu = ({ children, data, action = () => null, cy='', history }) => {
   const location = useLocation();
   const isActive = (address) => location.pathname === address;
   const actionMenu = (e) => {
