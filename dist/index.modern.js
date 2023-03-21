@@ -875,6 +875,7 @@ var Button = function Button(_ref) {
     color: color,
     variant: variant,
     size: size,
+    className: props.className ? props.className : type + " " + color + " " + variant + " " + size + " ",
     onClick: action
   }, props), children);
 };
