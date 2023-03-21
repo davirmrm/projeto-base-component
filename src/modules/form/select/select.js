@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, ReactNode } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { UseOutsideClick } from '../../useOusideClick/useoutsideclick';
 import { IcoClose, IcoSearch } from '../../icon/icon';
 import { validarCampo } from '../../validation/Validation';
