@@ -854,6 +854,8 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
+var style = {"btn":"_eAuVk","circle":"_NCm2b","transparent":"_2x2a4","small":"_5D_-7","block":"_1PoNo","normal":"_10TNW","primary":"_29gK8","secondary":"_1w_Nl","success":"_1pfep","warning":"_3KVHD","danger":"_3GB6C","outline":"_31GvI","outlined":"_3zX7m","link":"_3FCIG"};
+
 var _excluded = ["children", "type", "color", "variant", "size", "action", "cy"];
 var Button = function Button(_ref) {
   var children = _ref.children,
@@ -874,7 +876,7 @@ var Button = function Button(_ref) {
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
   return /*#__PURE__*/React$1__default.createElement("button", _extends({
     "data-cy": "Button" + cy,
-    className: props.className ? props.className : type + " " + color + " " + variant + " " + size + " ",
+    className: style[type] + " " + style[variant] + " " + style[color] + " " + style[size],
     onClick: action
   }, props), children);
 };
@@ -2636,8 +2638,6 @@ var Tab = function Tab(_ref) {
     "data-cy": type + "Tab" + cy + "ContentContainer"
   }, tabState));
 };
-
-require('./index.css');
 
 exports.ADD_ALERT = ADD_ALERT;
 exports.Accordion = Accordion;

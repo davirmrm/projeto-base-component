@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { AddAlert, Button, IcoClose } from '../../modules'
+import { Button, IcoClose } from '../../modules'
 
 export default () => {
   const dispatch = useDispatch()
@@ -84,51 +84,51 @@ export default () => {
         </Button>
       </div>
       <div className='grupo-botao'>
-        <Button color='primary' type='btn circle'>
+        <Button color='primary' type='circle'>
           <IcoClose />
         </Button>
-        <Button color='secondary' type='btn circle'>
+        <Button color='secondary' type='circle'>
           <IcoClose />
         </Button>
-        <Button color='warning' type='btn circle'>
+        <Button color='warning' type='circle'>
           <IcoClose />
         </Button>
-        <Button color='danger' type='btn circle'>
+        <Button color='danger' type='circle'>
           <IcoClose />
         </Button>
-        <Button color='success' type='btn circle'>
-          <IcoClose />
-        </Button>
-
-        <Button color='primary' type='btn circle' variant='outlined'>
-          <IcoClose />
-        </Button>
-        <Button color='secondary' type='btn circle' variant='outlined'>
-          <IcoClose />
-        </Button>
-        <Button color='warning' type='btn circle' variant='outlined'>
-          <IcoClose />
-        </Button>
-        <Button color='danger' type='btn circle' variant='outlined'>
-          <IcoClose />
-        </Button>
-        <Button color='success' type='btn circle' variant='outlined'>
+        <Button color='success' type='circle'>
           <IcoClose />
         </Button>
 
-        <Button color='primary' type='btn circle' variant='outline'>
+        <Button color='primary' type='circle' variant='outlined'>
           <IcoClose />
         </Button>
-        <Button color='secondary' type='btn circle' variant='outline'>
+        <Button color='secondary' type='circle' variant='outlined'>
           <IcoClose />
         </Button>
-        <Button color='warning' type='btn circle' variant='outline'>
+        <Button color='warning' type='circle' variant='outlined'>
           <IcoClose />
         </Button>
-        <Button color='danger' type='btn circle' variant='outline'>
+        <Button color='danger' type='circle' variant='outlined'>
           <IcoClose />
         </Button>
-        <Button color='success' type='btn circle' variant='outline'>
+        <Button color='success' type='circle' variant='outlined'>
+          <IcoClose />
+        </Button>
+
+        <Button color='primary' type='circle' variant='outline'>
+          <IcoClose />
+        </Button>
+        <Button color='secondary' type='circle' variant='outline'>
+          <IcoClose />
+        </Button>
+        <Button color='warning' type='circle' variant='outline'>
+          <IcoClose />
+        </Button>
+        <Button color='danger' type='circle' variant='outline'>
+          <IcoClose />
+        </Button>
+        <Button color='success' type='circle' variant='outline'>
           <IcoClose />
         </Button>
       </div>
