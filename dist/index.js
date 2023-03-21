@@ -1085,6 +1085,60 @@ var validarNumber = function validarNumber(e) {
   return false;
 };
 
+var Accordion = function Accordion(_ref) {
+  var _ref$data = _ref.data,
+    data = _ref$data === void 0 ? [] : _ref$data,
+    _ref$tabSelect = _ref.tabSelect,
+    tabSelect = _ref$tabSelect === void 0 ? '' : _ref$tabSelect,
+    _ref$actionTab = _ref.actionTab,
+    actionTab = _ref$actionTab === void 0 ? function () {
+      return null;
+    } : _ref$actionTab,
+    type = _ref.type,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
+  var _useState = React$1.useState(""),
+    tabStateId = _useState[0],
+    setTabStateId = _useState[1];
+  React$1.useEffect(function () {
+    if (data) {
+      var selectTab = data.filter(function (e) {
+        return e.id === (tabSelect ? tabSelect : data[0].id);
+      });
+      if (selectTab.length) {
+        setTabStateId(selectTab[0].id);
+      }
+    }
+  }, [data, tabSelect]);
+  return /*#__PURE__*/React$1__default.createElement("div", {
+    className: (type === 'custom' ? 'custom-tab' : 'box-tab') + " ",
+    "data-cy": "Accordion" + cy + "FullContainer"
+  }, data === null || data === void 0 ? void 0 : data.map(function (e) {
+    return /*#__PURE__*/React$1__default.createElement("div", {
+      key: "accordion-" + e.id,
+      className: e.id === tabStateId ? 'open' : '',
+      "data-cy": "Accordion" + cy + "[" + e.id + "]Container"
+    }, /*#__PURE__*/React$1__default.createElement("div", {
+      className: "accordion-header",
+      onClick: function onClick() {
+        return [setTabStateId(tabStateId === e.id ? '' : e.id), actionTab(e.id)];
+      },
+      "data-cy": "Accordion" + cy + e.id + "ClickOpenClose"
+    }, /*#__PURE__*/React$1__default.createElement("h6", {
+      "data-cy": "Accordion" + cy + e.id + "Title"
+    }, e.title), /*#__PURE__*/React$1__default.createElement("span", {
+      "data-cy": "Accordion" + cy + e.id + "TitleIcon"
+    }, e.id === tabStateId ? /*#__PURE__*/React$1__default.createElement(IcoMinus, {
+      cy: "Accordion" + cy + e.id
+    }) : /*#__PURE__*/React$1__default.createElement(IcoAdd, {
+      cy: "Accordion" + cy + e.id
+    }))), /*#__PURE__*/React$1__default.createElement("div", {
+      className: "accordion-container",
+      "data-cy": "Accordion" + cy + e.id + "ContentContainer"
+    }, e.content));
+  }));
+};
+
 const Checkbox = _ref => {
   let {
     options,
@@ -2587,6 +2641,7 @@ var Tab = function Tab(_ref) {
 };
 
 exports.ADD_ALERT = ADD_ALERT;
+exports.Accordion = Accordion;
 exports.AddAlert = AddAlert;
 exports.Alert = Alert;
 exports.Button = Button;

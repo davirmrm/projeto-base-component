@@ -1082,6 +1082,60 @@ var validarNumber = function validarNumber(e) {
   return false;
 };
 
+var Accordion = function Accordion(_ref) {
+  var _ref$data = _ref.data,
+    data = _ref$data === void 0 ? [] : _ref$data,
+    _ref$tabSelect = _ref.tabSelect,
+    tabSelect = _ref$tabSelect === void 0 ? '' : _ref$tabSelect,
+    _ref$actionTab = _ref.actionTab,
+    actionTab = _ref$actionTab === void 0 ? function () {
+      return null;
+    } : _ref$actionTab,
+    type = _ref.type,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
+  var _useState = useState(""),
+    tabStateId = _useState[0],
+    setTabStateId = _useState[1];
+  useEffect(function () {
+    if (data) {
+      var selectTab = data.filter(function (e) {
+        return e.id === (tabSelect ? tabSelect : data[0].id);
+      });
+      if (selectTab.length) {
+        setTabStateId(selectTab[0].id);
+      }
+    }
+  }, [data, tabSelect]);
+  return /*#__PURE__*/React$1.createElement("div", {
+    className: (type === 'custom' ? 'custom-tab' : 'box-tab') + " ",
+    "data-cy": "Accordion" + cy + "FullContainer"
+  }, data === null || data === void 0 ? void 0 : data.map(function (e) {
+    return /*#__PURE__*/React$1.createElement("div", {
+      key: "accordion-" + e.id,
+      className: e.id === tabStateId ? 'open' : '',
+      "data-cy": "Accordion" + cy + "[" + e.id + "]Container"
+    }, /*#__PURE__*/React$1.createElement("div", {
+      className: "accordion-header",
+      onClick: function onClick() {
+        return [setTabStateId(tabStateId === e.id ? '' : e.id), actionTab(e.id)];
+      },
+      "data-cy": "Accordion" + cy + e.id + "ClickOpenClose"
+    }, /*#__PURE__*/React$1.createElement("h6", {
+      "data-cy": "Accordion" + cy + e.id + "Title"
+    }, e.title), /*#__PURE__*/React$1.createElement("span", {
+      "data-cy": "Accordion" + cy + e.id + "TitleIcon"
+    }, e.id === tabStateId ? /*#__PURE__*/React$1.createElement(IcoMinus, {
+      cy: "Accordion" + cy + e.id
+    }) : /*#__PURE__*/React$1.createElement(IcoAdd, {
+      cy: "Accordion" + cy + e.id
+    }))), /*#__PURE__*/React$1.createElement("div", {
+      className: "accordion-container",
+      "data-cy": "Accordion" + cy + e.id + "ContentContainer"
+    }, e.content));
+  }));
+};
+
 const Checkbox = _ref => {
   let {
     options,
@@ -2583,5 +2637,5 @@ var Tab = function Tab(_ref) {
   }, tabState));
 };
 
-export { ADD_ALERT, AddAlert, Alert, Button, Checkbox, FilterAction, FilterSelect, IcoAdd, IcoArrowBottom, IcoArrowUpDown, IcoAssignmentReturn, IcoBin, IcoCancelPresentation, IcoChat, IcoCheckWithCircularArrows, IcoClose, IcoDataBase, IcoDotsHorizontalTriple, IcoDownload, IcoDrawPolygon, IcoEye, IcoEyeBlocked, IcoFilter, IcoFilters, IcoGridView, IcoHandPointer, IcoLineFree, IcoListView, IcoLoadingLogo, IcoLogOut, IcoLogo, IcoLogo1, IcoMala, IcoMenu, IcoMinus, IcoMoto, IcoPencil, IcoPin, IcoPinLogo, IcoRadioChecked, IcoRealtyMenu, IcoSearch, IcoTree, IcoUser, IcoUser2, Input, List, Loading, MaskCpf, MaskItemCep, MaskTelefone, MaskValor, MaskValorMoedaex, Menu, Modal, Paginate, REMOVE_ALERT, RadioButton, RemoveAlert, Select, Tab, UseOutsideClick, adicionaZero, modalRight, validacaoCampo, validacaoForm, validarCPF, validarCampo, validarData, validarNumber, verifySelectValue };
+export { ADD_ALERT, Accordion, AddAlert, Alert, Button, Checkbox, FilterAction, FilterSelect, IcoAdd, IcoArrowBottom, IcoArrowUpDown, IcoAssignmentReturn, IcoBin, IcoCancelPresentation, IcoChat, IcoCheckWithCircularArrows, IcoClose, IcoDataBase, IcoDotsHorizontalTriple, IcoDownload, IcoDrawPolygon, IcoEye, IcoEyeBlocked, IcoFilter, IcoFilters, IcoGridView, IcoHandPointer, IcoLineFree, IcoListView, IcoLoadingLogo, IcoLogOut, IcoLogo, IcoLogo1, IcoMala, IcoMenu, IcoMinus, IcoMoto, IcoPencil, IcoPin, IcoPinLogo, IcoRadioChecked, IcoRealtyMenu, IcoSearch, IcoTree, IcoUser, IcoUser2, Input, List, Loading, MaskCpf, MaskItemCep, MaskTelefone, MaskValor, MaskValorMoedaex, Menu, Modal, Paginate, REMOVE_ALERT, RadioButton, RemoveAlert, Select, Tab, UseOutsideClick, adicionaZero, modalRight, validacaoCampo, validacaoForm, validarCPF, validarCampo, validarData, validarNumber, verifySelectValue };
 //# sourceMappingURL=index.modern.js.map

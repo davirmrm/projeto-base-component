@@ -4,6 +4,7 @@ export * from './useOusideClick/useoutsideclick'
 
 export * from './validation/Validation'
 
+export * from './accordion/accordion'
 export * from './button/button'
 export * from './form/form'
 export * from './icon/icon'
