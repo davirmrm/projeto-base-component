@@ -1,6 +1,6 @@
 import React from 'react';
-// import './button.scss';
-import { ButtonBGI } from  './styled';
+import './button.scss';
+// import { ButtonBGI } from  './styled';
 
 export const Button = ({
   children,
@@ -13,7 +13,7 @@ export const Button = ({
   ...props
 }) => {
   return (
-    <ButtonBGI
+    <button
       data-cy={`Button${cy}`}
       type={type}
       color={color}
@@ -25,6 +25,6 @@ export const Button = ({
       {...props}
     >
       {children}
-    </ButtonBGI>
+    </button>
   );
 };

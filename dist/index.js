@@ -4,7 +4,6 @@ var React$1 = require('react');
 var React$1__default = _interopDefault(React$1);
 var reactRedux = require('react-redux');
 var ReactDOM = _interopDefault(require('react-dom'));
-var styled = _interopDefault(require('styled-components'));
 var reactRouterDom = require('react-router-dom');
 
 var Portal = (function (_ref) {
@@ -855,31 +854,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-const ButtonBGI = styled.button`
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  color: var(--color-page);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  font-family: "Quicksand", sans-serif;
-  padding: 8px 15px;
-  transition: all 0.15s;
-  min-height: 46px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  
-  ${prop => prop.variant === 'normal' ? prop.color === 'primary' ? `
-      background-color: var(--primary-bg);
-      border-color: var(--primary-bgh);
-      color: var(--primary-color);
-      &:hover {
-        background-color: var(--primary-bgh);
-      }
-    ` : '' : ''}
-  ${prop => console.log(prop)}
-`;
-
 var _excluded = ["children", "type", "color", "variant", "size", "action", "cy"];
 var Button = function Button(_ref) {
   var children = _ref.children,
@@ -898,7 +872,7 @@ var Button = function Button(_ref) {
     _ref$cy = _ref.cy,
     cy = _ref$cy === void 0 ? '' : _ref$cy,
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  return /*#__PURE__*/React$1__default.createElement(ButtonBGI, _extends({
+  return /*#__PURE__*/React$1__default.createElement("button", _extends({
     "data-cy": "Button" + cy,
     type: type,
     color: color,
