@@ -1,6 +1,7 @@
 import React$1, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactDOM from 'react-dom';
+import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 
 var Portal = (function (_ref) {
@@ -851,7 +852,32 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var _excluded = ["children", "type", "color", "variant", "size", "disabled", "action", "cy"];
+const ButtonBGI = styled.button`
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--color-page);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-family: "Quicksand", sans-serif;
+  padding: 8px 15px;
+  transition: all 0.15s;
+  min-height: 46px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  
+  ${prop => prop.variant === 'normal' ? prop.color === 'primary' ? `
+      background-color: var(--primary-bg);
+      border-color: var(--primary-bgh);
+      color: var(--primary-color);
+      &:hover {
+        background-color: var(--primary-bgh);
+      }
+    ` : '' : ''}
+  ${prop => console.log(prop)}
+`;
+
+var _excluded = ["children", "type", "color", "variant", "size", "action", "cy"];
 var Button = function Button(_ref) {
   var children = _ref.children,
     _ref$type = _ref.type,
@@ -862,8 +888,6 @@ var Button = function Button(_ref) {
     variant = _ref$variant === void 0 ? 'normal' : _ref$variant,
     _ref$size = _ref.size,
     size = _ref$size === void 0 ? 'medium' : _ref$size,
-    _ref$disabled = _ref.disabled,
-    disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     _ref$action = _ref.action,
     action = _ref$action === void 0 ? function () {
       return null;
@@ -871,12 +895,14 @@ var Button = function Button(_ref) {
     _ref$cy = _ref.cy,
     cy = _ref$cy === void 0 ? '' : _ref$cy,
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
-  return /*#__PURE__*/React$1.createElement("button", _extends({}, props, {
+  return /*#__PURE__*/React$1.createElement(ButtonBGI, _extends({
     "data-cy": "Button" + cy,
-    className: props.className ? props.className : type + " " + color + " " + variant + " " + size + " ",
-    disabled: disabled,
+    type: type,
+    color: color,
+    variant: variant,
+    size: size,
     onClick: action
-  }), children);
+  }, props), children);
 };
 
 var Alert = function Alert() {

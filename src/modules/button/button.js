@@ -1,5 +1,6 @@
 import React from 'react';
-import './button.scss';
+// import './button.scss';
+import { ButtonBGI } from  './styled';
 
 export const Button = ({
   children,
@@ -7,20 +8,23 @@ export const Button = ({
   color = 'default',
   variant = 'normal',
   size = 'medium',
-  disabled = false,
   action = ()=> null,
   cy = '',
   ...props
 }) => {
   return (
-    <button
-      {...props}
+    <ButtonBGI
       data-cy={`Button${cy}`}
-      className={props.className ? props.className : `${type} ${color} ${variant} ${size} `}
-      disabled={disabled}
+      type={type}
+      color={color}
+      variant={variant}
+      size={size}
+      
+      // className={props.className ? props.className : `${type} ${color} ${variant} ${size} `}
       onClick={action}
+      {...props}
     >
       {children}
-    </button>
+    </ButtonBGI>
   );
 };

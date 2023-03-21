@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Accordion } from '../../modules/accordion/accordion'
+import { Accordion } from '../../modules'
 import jsoncomponent from './components.json'
 
 export default () => {
