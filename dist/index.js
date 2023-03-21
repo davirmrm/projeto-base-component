@@ -2637,6 +2637,8 @@ var Tab = function Tab(_ref) {
   }, tabState));
 };
 
+require('./index.css');
+
 exports.ADD_ALERT = ADD_ALERT;
 exports.Accordion = Accordion;
 exports.AddAlert = AddAlert;

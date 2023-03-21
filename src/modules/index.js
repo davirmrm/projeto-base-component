@@ -15,3 +15,5 @@ export * from './modal/modal'
 export * from './pagination/pagination'
 export * from './sidebar/modalRight'
 export * from './tab/tab'
+
+require('./index.css')

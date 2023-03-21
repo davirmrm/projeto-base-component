@@ -2634,5 +2634,7 @@ var Tab = function Tab(_ref) {
   }, tabState));
 };
 
+require('./index.css');
+
 export { ADD_ALERT, Accordion, AddAlert, Alert, Button, Checkbox, FilterAction, FilterSelect, IcoAdd, IcoArrowBottom, IcoArrowUpDown, IcoAssignmentReturn, IcoBin, IcoCancelPresentation, IcoChat, IcoCheckWithCircularArrows, IcoClose, IcoDataBase, IcoDotsHorizontalTriple, IcoDownload, IcoDrawPolygon, IcoEye, IcoEyeBlocked, IcoFilter, IcoFilters, IcoGridView, IcoHandPointer, IcoLineFree, IcoListView, IcoLoadingLogo, IcoLogOut, IcoLogo, IcoLogo1, IcoMala, IcoMenu, IcoMinus, IcoMoto, IcoPencil, IcoPin, IcoPinLogo, IcoRadioChecked, IcoRealtyMenu, IcoSearch, IcoTree, IcoUser, IcoUser2, Input, List, Loading, MaskCpf, MaskItemCep, MaskTelefone, MaskValor, MaskValorMoedaex, Menu, Modal, Paginate, REMOVE_ALERT, RadioButton, RemoveAlert, Select, Tab, UseOutsideClick, adicionaZero, modalRight, validacaoCampo, validacaoForm, validarCPF, validarCampo, validarData, validarNumber, verifySelectValue };
 //# sourceMappingURL=index.modern.js.map
