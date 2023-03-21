@@ -20,7 +20,7 @@ export const Button = ({
       variant={variant}
       size={size}
       
-      // className={props.className ? props.className : `${type} ${color} ${variant} ${size} `}
+      className={props.className ? props.className : `${type} ${color} ${variant} ${size} `}
       onClick={action}
       {...props}
     >
