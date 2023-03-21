@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { useLocation } from 'react-router-dom';
 
-var Portal = (_ref => {
-  let {
-    children,
-    name
-  } = _ref;
-  let nameRandom = ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
-  let modalRoot = document.getElementById(`root-${name}`);
+var Portal = (function (_ref) {
+  var children = _ref.children,
+    name = _ref.name;
+  var nameRandom = ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
+  var modalRoot = document.getElementById("root-" + name);
   if (!modalRoot) {
-    const tempEl = document.createElement('div');
-    tempEl.id = `root-${name ? name : nameRandom}`;
+    var tempEl = document.createElement('div');
+    tempEl.id = "root-" + (name ? name : nameRandom);
     document.body.append(tempEl);
     modalRoot = tempEl;
   }
@@ -840,86 +838,107 @@ function _extends() {
   };
   return _extends.apply(this, arguments);
 }
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+  return target;
+}
 
-const Button = _ref => {
-  let {
-    children,
-    type = 'btn',
-    color = 'default',
-    variant = 'normal',
-    size = 'medium',
-    action = () => null,
-    cy = '',
-    ...props
-  } = _ref;
+var _excluded = ["children", "type", "color", "variant", "size", "action", "cy"];
+var Button = function Button(_ref) {
+  var children = _ref.children,
+    _ref$type = _ref.type,
+    type = _ref$type === void 0 ? 'btn' : _ref$type,
+    _ref$color = _ref.color,
+    color = _ref$color === void 0 ? 'default' : _ref$color,
+    _ref$variant = _ref.variant,
+    variant = _ref$variant === void 0 ? 'normal' : _ref$variant,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? 'medium' : _ref$size,
+    _ref$action = _ref.action,
+    action = _ref$action === void 0 ? function () {
+      return null;
+    } : _ref$action,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy,
+    props = _objectWithoutPropertiesLoose(_ref, _excluded);
   return /*#__PURE__*/React$1.createElement("button", _extends({
-    "data-cy": `Button${cy}`,
-    className: props.className ? props.className : `${type} ${color} ${variant} ${size} `,
+    "data-cy": "Button" + cy,
+    className: props.className ? props.className : type + " " + color + " " + variant + " " + size + " ",
     onClick: action
   }, props), children);
 };
 
-const Alert = () => {
-  const dispatch = useDispatch();
-  const alerts = useSelector(state => state.alerts);
+var Alert = function Alert() {
+  var dispatch = useDispatch();
+  var alerts = useSelector(function (state) {
+    return state.alerts;
+  });
   return /*#__PURE__*/React$1.createElement(Portal, {
     name: "alert"
-  }, /*#__PURE__*/React$1.createElement(Fragment, null, alerts === null || alerts === void 0 ? void 0 : alerts.map(alert => {
+  }, /*#__PURE__*/React$1.createElement(Fragment, null, alerts === null || alerts === void 0 ? void 0 : alerts.map(function (alert) {
     setTimeout(function () {
       dispatch(RemoveAlert(alert.id));
     }, alert.time ? alert.time : 3000);
     return /*#__PURE__*/React$1.createElement("div", {
       key: alert.id,
-      className: `box-alert alert-${alert.type}`,
-      "data-cy": `Alert${alert.id}`
+      className: "box-alert alert-" + alert.type,
+      "data-cy": "Alert" + alert.id
     }, /*#__PURE__*/React$1.createElement("div", {
       dangerouslySetInnerHTML: {
         __html: alert.mensage
       },
-      "data-cy": `Alert${alert.id}Message`
+      "data-cy": "Alert" + alert.id + "Message"
     }), /*#__PURE__*/React$1.createElement(Button, {
       className: "alert-close",
-      action: () => dispatch(RemoveAlert(alert.id)),
-      cy: `Alert${alert.id}Close`
+      action: function action() {
+        return dispatch(RemoveAlert(alert.id));
+      },
+      cy: "Alert" + alert.id + "Close"
     }, /*#__PURE__*/React$1.createElement(IcoClose, {
-      cy: `Alert${alert.id}`
+      cy: "Alert" + alert.id
     })));
   })));
 };
 
-const UseOutsideClick = (ref, callback) => {
-  const handleClick = e => {
+var UseOutsideClick = function UseOutsideClick(ref, callback) {
+  var handleClick = function handleClick(e) {
     if (ref.current && !ref.current.contains(e.target)) {
       callback(false);
     }
   };
-  useEffect(() => {
-    setTimeout(() => {
+  useEffect(function () {
+    setTimeout(function () {
       document.addEventListener('click', handleClick);
     }, 100);
-    return () => {
+    return function () {
       document.removeEventListener('click', handleClick);
     };
   });
 };
 
-const typePatern = {
+var typePatern = {
   phone: /\([0-9]{2}\) [0-9]{4,7}-[0-9]{4,5}$/,
   email: /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g,
   ip: /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
   number: /[0-9]+$/,
   senha: {
-    especial: `/^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{1,20}$/`,
-    maiuscula: `/^(?=.*[A-Z])[@!#$%^&*()/\\a-zA-Z0-9]{1,20}$/`
+    especial: "/^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{1,20}$/",
+    maiuscula: "/^(?=.*[A-Z])[@!#$%^&*()/\\a-zA-Z0-9]{1,20}$/"
   }
 };
-const validacaoCampo = _ref => {
+var validacaoCampo = function validacaoCampo(_ref) {
   var _pattern;
-  let {
-    valor,
-    name,
-    pattern
-  } = _ref;
+  var valor = _ref.valor,
+    name = _ref.name,
+    pattern = _ref.pattern;
   if (((_pattern = pattern) === null || _pattern === void 0 ? void 0 : _pattern.search('type')) !== -1) {
     pattern = JSON.parse(pattern);
   }
@@ -952,7 +971,7 @@ const validacaoCampo = _ref => {
     return {
       name: name,
       message: validarNumber({
-        valor,
+        valor: valor,
         max: pattern.max,
         min: pattern.min
       })
@@ -961,7 +980,7 @@ const validacaoCampo = _ref => {
     return {
       name: name,
       message: validarData({
-        valor,
+        valor: valor,
         max: pattern.max,
         min: pattern.min
       })
@@ -983,12 +1002,11 @@ const validacaoCampo = _ref => {
     };
   }
 };
-const validarCampo = e => {
-  const valor = e.target.value;
-  const {
-    name,
-    pattern
-  } = e.target;
+var validarCampo = function validarCampo(e) {
+  var valor = e.target.value;
+  var _e$target = e.target,
+    name = _e$target.name,
+    pattern = _e$target.pattern;
   if (!valor) {
     return {
       name: name,
@@ -996,14 +1014,14 @@ const validarCampo = e => {
     };
   }
   return validacaoCampo({
-    valor,
-    name,
-    pattern
+    valor: valor,
+    name: name,
+    pattern: pattern
   });
 };
-const validacaoForm = e => {
-  let erro = {};
-  const pattern = e => {
+var validacaoForm = function validacaoForm(e) {
+  var erro = {};
+  var pattern = function pattern(e) {
     if (typeof e === 'object') {
       return JSON.stringify(e);
     } else if (typeof e === 'string') {
@@ -1012,27 +1030,23 @@ const validacaoForm = e => {
       return '';
     }
   };
-  for (const name in e.formRequired) {
+  for (var name in e.formRequired) {
     if (e.formRequired[name]) {
-      let valForm = validacaoCampo({
+      var _extends2;
+      var valForm = validacaoCampo({
         valor: e.formValues[name],
-        name,
+        name: name,
         pattern: pattern(e.formRequired[name])
       });
-      erro = {
-        ...erro,
-        [name]: valForm.message
-      };
+      erro = _extends({}, erro, (_extends2 = {}, _extends2[name] = valForm.message, _extends2));
     } else {
-      erro = {
-        ...erro,
-        [name]: !e.formValues[name]
-      };
+      var _extends3;
+      erro = _extends({}, erro, (_extends3 = {}, _extends3[name] = !e.formValues[name], _extends3));
     }
   }
   return erro;
 };
-const validarCPF = e => {
+var validarCPF = function validarCPF(e) {
   if (typeof e !== "string") return 'invalido';
   e = e.replace(/[\s.-]*/igm, '');
   if (!e || e.length !== 11 || e === "00000000000" || e === "11111111111" || e === "22222222222" || e === "33333333333" || e === "44444444444" || e === "55555555555" || e === "66666666666" || e === "77777777777" || e === "88888888888" || e === "99999999999") {
@@ -1051,60 +1065,72 @@ const validarCPF = e => {
   if (resto !== parseInt(e.substring(10, 11))) return 'invalido';
   return false;
 };
-const validarData = e => {
-  const dmin = new Date(e.min);
-  const dmax = new Date(e.max);
-  const de = new Date(e.valor);
+var validarData = function validarData(e) {
+  var dmin = new Date(e.min);
+  var dmax = new Date(e.max);
+  var de = new Date(e.valor);
   if (de < dmin) return 'menor';
   if (de > dmax) return 'maior';
   return false;
 };
-const validarNumber = e => {
+var validarNumber = function validarNumber(e) {
   if (Number(e.valor) < Number(e.min)) return 'menor';
   if (Number(e.valor) > Number(e.max)) return 'maior';
   return false;
 };
 
-const Accordion = _ref => {
-  let {
-    data = [],
-    tabSelect = '',
-    actionTab = () => null,
-    type,
-    cy = ''
-  } = _ref;
-  const [tabStateId, setTabStateId] = useState("");
-  useEffect(() => {
+var Accordion = function Accordion(_ref) {
+  var _ref$data = _ref.data,
+    data = _ref$data === void 0 ? [] : _ref$data,
+    _ref$tabSelect = _ref.tabSelect,
+    tabSelect = _ref$tabSelect === void 0 ? '' : _ref$tabSelect,
+    _ref$actionTab = _ref.actionTab,
+    actionTab = _ref$actionTab === void 0 ? function () {
+      return null;
+    } : _ref$actionTab,
+    type = _ref.type,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
+  var _useState = useState(""),
+    tabStateId = _useState[0],
+    setTabStateId = _useState[1];
+  useEffect(function () {
     if (data) {
-      const selectTab = data.filter(e => e.id === (tabSelect ? tabSelect : data[0].id));
+      var selectTab = data.filter(function (e) {
+        return e.id === (tabSelect ? tabSelect : data[0].id);
+      });
       if (selectTab.length) {
         setTabStateId(selectTab[0].id);
       }
     }
   }, [data, tabSelect]);
   return /*#__PURE__*/React$1.createElement("div", {
-    className: `${type === 'custom' ? 'custom-tab' : 'box-tab'} `,
-    "data-cy": `Accordion${cy}FullContainer`
-  }, data === null || data === void 0 ? void 0 : data.map(e => /*#__PURE__*/React$1.createElement("div", {
-    key: `accordion-${e.id}`,
-    className: e.id === tabStateId ? 'open' : '',
-    "data-cy": `Accordion${cy}[${e.id}]Container`
-  }, /*#__PURE__*/React$1.createElement("div", {
-    className: "accordion-header",
-    onClick: () => [setTabStateId(tabStateId === e.id ? '' : e.id), actionTab(e.id)],
-    "data-cy": `Accordion${cy}${e.id}ClickOpenClose`
-  }, /*#__PURE__*/React$1.createElement("h6", {
-    "data-cy": `Accordion${cy}${e.id}Title`
-  }, e.title), /*#__PURE__*/React$1.createElement("span", {
-    "data-cy": `Accordion${cy}${e.id}TitleIcon`
-  }, e.id === tabStateId ? /*#__PURE__*/React$1.createElement(IcoMinus, {
-    cy: `Accordion${cy}${e.id}`
-  }) : /*#__PURE__*/React$1.createElement(IcoAdd, {
-    cy: `Accordion${cy}${e.id}`
-  }))), /*#__PURE__*/React$1.createElement("div", {
-    className: "accordion-container",
-    "data-cy": `Accordion${cy}${e.id}ContentContainer`
-  }, e.content))));
+    className: (type === 'custom' ? 'custom-tab' : 'box-tab') + " ",
+    "data-cy": "Accordion" + cy + "FullContainer"
+  }, data === null || data === void 0 ? void 0 : data.map(function (e) {
+    return /*#__PURE__*/React$1.createElement("div", {
+      key: "accordion-" + e.id,
+      className: e.id === tabStateId ? 'open' : '',
+      "data-cy": "Accordion" + cy + "[" + e.id + "]Container"
+    }, /*#__PURE__*/React$1.createElement("div", {
+      className: "accordion-header",
+      onClick: function onClick() {
+        return [setTabStateId(tabStateId === e.id ? '' : e.id), actionTab(e.id)];
+      },
+      "data-cy": "Accordion" + cy + e.id + "ClickOpenClose"
+    }, /*#__PURE__*/React$1.createElement("h6", {
+      "data-cy": "Accordion" + cy + e.id + "Title"
+    }, e.title), /*#__PURE__*/React$1.createElement("span", {
+      "data-cy": "Accordion" + cy + e.id + "TitleIcon"
+    }, e.id === tabStateId ? /*#__PURE__*/React$1.createElement(IcoMinus, {
+      cy: "Accordion" + cy + e.id
+    }) : /*#__PURE__*/React$1.createElement(IcoAdd, {
+      cy: "Accordion" + cy + e.id
+    }))), /*#__PURE__*/React$1.createElement("div", {
+      className: "accordion-container",
+      "data-cy": "Accordion" + cy + e.id + "ContentContainer"
+    }, e.content));
+  }));
 };
 
 const Checkbox = _ref => {
@@ -1659,58 +1685,63 @@ const MaskValor = function (valor, language) {
   return v;
 };
 
-const List = _ref => {
-  let {
-    header,
-    data,
-    listCustom = () => null,
-    noData = 'Sem informação',
-    cy = ''
-  } = _ref;
-  const [listState, setListState] = useState([]);
-  useEffect(() => {
+var List = function List(_ref) {
+  var header = _ref.header,
+    data = _ref.data,
+    _ref$listCustom = _ref.listCustom,
+    listCustom = _ref$listCustom === void 0 ? function () {
+      return null;
+    } : _ref$listCustom,
+    _ref$noData = _ref.noData,
+    noData = _ref$noData === void 0 ? 'Sem informação' : _ref$noData,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
+  var _useState = useState([]),
+    listState = _useState[0],
+    setListState = _useState[1];
+  useEffect(function () {
     setListState(data);
   }, [data]);
   return /*#__PURE__*/React$1.createElement("div", {
     className: "box-scrool"
   }, /*#__PURE__*/React$1.createElement("table", {
     className: "list-box",
-    "data-cy": `Table${cy}`
+    "data-cy": "Table" + cy
   }, /*#__PURE__*/React$1.createElement("thead", null, /*#__PURE__*/React$1.createElement("tr", {
-    "data-cy": `Table${cy}Header`
-  }, header.map(header => {
+    "data-cy": "Table" + cy + "Header"
+  }, header.map(function (header) {
     return /*#__PURE__*/React$1.createElement("td", {
       className: header.className,
       key: header.column,
-      "data-cy": `Table${cy}HeaderColumn[${header.column}]`
+      "data-cy": "Table" + cy + "HeaderColumn[" + header.column + "]"
     }, header.text);
-  }))), /*#__PURE__*/React$1.createElement("tbody", null, data.length ? listState.map((container, i) => {
+  }))), /*#__PURE__*/React$1.createElement("tbody", null, data.length ? listState.map(function (container, i) {
     listCustom(container, i, data);
     return /*#__PURE__*/React$1.createElement("tr", {
       key: container.id ? container.id : i,
-      "data-cy": `Table${cy}Row[${i}]`
-    }, header.map(header => {
+      "data-cy": "Table" + cy + "Row[" + i + "]"
+    }, header.map(function (header) {
       return /*#__PURE__*/React$1.createElement("td", {
         className: header.className,
-        key: `${container.id ? container.id : i}-${header.column}`,
-        "data-cy": `Table${cy}Row[${i}]Column[${header.column}]`
+        key: (container.id ? container.id : i) + "-" + header.column,
+        "data-cy": "Table" + cy + "Row[" + i + "]Column[" + header.column + "]"
       }, container[header.column] ? container[header.column] : '');
     }));
   }) : /*#__PURE__*/React$1.createElement("tr", null, /*#__PURE__*/React$1.createElement("td", {
     colSpan: header === null || header === void 0 ? void 0 : header.length,
     className: "text-center",
-    "data-cy": `Table${cy}NoData`
+    "data-cy": "Table" + cy + "NoData"
   }, noData)))));
 };
 
-const Loading = _ref => {
-  let {
-    title = 'Carregando',
-    icon = /*#__PURE__*/React$1.createElement("div", {
+var Loading = function Loading(_ref) {
+  var _ref$title = _ref.title,
+    title = _ref$title === void 0 ? 'Carregando' : _ref$title,
+    _ref$icon = _ref.icon,
+    icon = _ref$icon === void 0 ? /*#__PURE__*/React$1.createElement("div", {
       className: "loader-default",
       "data-cy": "LoadingIcon"
-    })
-  } = _ref;
+    }) : _ref$icon;
   return /*#__PURE__*/React$1.createElement(Portal, {
     name: "loading"
   }, /*#__PURE__*/React$1.createElement("div", {
@@ -2316,16 +2347,20 @@ function createBrowserHistory(props) {
 
 const history = createBrowserHistory();
 
-const Menu = _ref => {
-  let {
-    children,
-    data,
-    action = () => null,
-    cy = ''
-  } = _ref;
-  const location = useLocation();
-  const isActive = address => location.pathname === address;
-  const actionMenu = e => {
+var Menu = function Menu(_ref) {
+  var children = _ref.children,
+    data = _ref.data,
+    _ref$action = _ref.action,
+    action = _ref$action === void 0 ? function () {
+      return null;
+    } : _ref$action,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
+  var location = useLocation();
+  var isActive = function isActive(address) {
+    return location.pathname === address;
+  };
+  var actionMenu = function actionMenu(e) {
     if (e.url) {
       window.open(e.url, '_blank');
     }
@@ -2336,123 +2371,122 @@ const Menu = _ref => {
   };
   return /*#__PURE__*/React$1.createElement("div", {
     className: "menu",
-    "data-cy": `Menu${cy}`
-  }, data && data.length ? data.map(item => {
+    "data-cy": "Menu" + cy
+  }, data && data.length ? data.map(function (item) {
     return /*#__PURE__*/React$1.createElement("button", {
       key: item.id,
       className: isActive(item.go) ? 'active' : '',
-      onClick: () => actionMenu(item),
-      "data-cy": `MenuList${item.id}Optionclick${cy}`
+      onClick: function onClick() {
+        return actionMenu(item);
+      },
+      "data-cy": "MenuList" + item.id + "Optionclick" + cy
     }, /*#__PURE__*/React$1.createElement("span", {
-      "data-cy": `MenuItem${cy}IconOrLabel`
+      "data-cy": "MenuItem" + cy + "IconOrLabel"
     }, item.icon ? item.icon : null, " ", item.label));
   }) : null, children);
 };
 
-const Modal = _ref => {
-  let {
-    title,
-    children,
-    open = false,
-    close,
-    closeText = 'Fechar',
-    size = 'medium',
-    actions,
-    cy
-  } = _ref;
+var Modal = function Modal(_ref) {
+  var title = _ref.title,
+    children = _ref.children,
+    _ref$open = _ref.open,
+    open = _ref$open === void 0 ? false : _ref$open,
+    close = _ref.close,
+    _ref$closeText = _ref.closeText,
+    closeText = _ref$closeText === void 0 ? 'Fechar' : _ref$closeText,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? 'medium' : _ref$size,
+    actions = _ref.actions,
+    cy = _ref.cy;
   if (!Array.isArray(children)) {
     children = [children];
   }
   return /*#__PURE__*/React$1.createElement(Portal, {
     name: "modal"
   }, open ? size === 'fullscreen' ? fullscreen({
-    title,
-    open,
-    children,
-    size,
-    closeText,
-    close,
-    actions,
-    cy
+    title: title,
+    open: open,
+    children: children,
+    size: size,
+    closeText: closeText,
+    close: close,
+    actions: actions,
+    cy: cy
   }) : modalNormal({
-    title,
-    open,
-    children,
-    size,
-    closeText,
-    close,
-    actions,
-    cy
+    title: title,
+    open: open,
+    children: children,
+    size: size,
+    closeText: closeText,
+    close: close,
+    actions: actions,
+    cy: cy
   }) : null);
 };
-const fullscreen = _ref2 => {
-  let {
-    title,
-    children,
-    closeText,
-    close,
-    actions,
-    cy
-  } = _ref2;
+var fullscreen = function fullscreen(_ref2) {
+  var title = _ref2.title,
+    children = _ref2.children,
+    closeText = _ref2.closeText,
+    close = _ref2.close,
+    actions = _ref2.actions,
+    cy = _ref2.cy;
   return /*#__PURE__*/React$1.createElement("div", {
-    className: `box-modal fullScreen`,
-    "data-cy": `ModalFullScreenFullContainer${cy}`
+    className: "box-modal fullScreen",
+    "data-cy": "ModalFullScreenFullContainer" + cy
   }, /*#__PURE__*/React$1.createElement("div", {
     className: "modal-header",
-    "data-cy": `ModalFullScreen${cy}Header`
+    "data-cy": "ModalFullScreen" + cy + "Header"
   }, title, actions ? /*#__PURE__*/React$1.createElement("div", {
     className: "modal-actions",
-    "data-cy": `ModalFullScreen${cy}Actions`
+    "data-cy": "ModalFullScreen" + cy + "Actions"
   }, /*#__PURE__*/React$1.createElement(Button, {
     className: "btn secondary normal",
     onClick: close,
-    cy: `ModalFullScreenClose${cy}`
+    cy: "ModalFullScreenClose" + cy
   }, closeText), actions) : null), /*#__PURE__*/React$1.createElement("div", {
     className: "modal-content",
-    "data-cy": `Modal${cy}ContentContainer`
+    "data-cy": "Modal" + cy + "ContentContainer"
   }, children));
 };
-const modalNormal = _ref3 => {
-  let {
-    title,
-    children,
-    size,
-    closeText,
-    close,
-    actions,
-    cy
-  } = _ref3;
+var modalNormal = function modalNormal(_ref3) {
+  var title = _ref3.title,
+    children = _ref3.children,
+    size = _ref3.size,
+    closeText = _ref3.closeText,
+    close = _ref3.close,
+    actions = _ref3.actions,
+    cy = _ref3.cy;
   return /*#__PURE__*/React$1.createElement("div", {
-    className: `box-modal`,
-    "data-cy": `Modal${cy}FullContainer`
+    className: "box-modal",
+    "data-cy": "Modal" + cy + "FullContainer"
   }, /*#__PURE__*/React$1.createElement("div", {
-    className: `size-${size}`,
-    "data-cy": `Modal${size}${cy}Container`
+    className: "size-" + size,
+    "data-cy": "Modal" + size + cy + "Container"
   }, /*#__PURE__*/React$1.createElement("div", {
     className: "modal-header",
-    "data-cy": `Modal${size}${cy}Header`
+    "data-cy": "Modal" + size + cy + "Header"
   }, title, /*#__PURE__*/React$1.createElement(Button, {
     className: "modal-close",
     onClick: close,
     title: closeText,
-    cy: `Modal${size}${cy}Close`
+    cy: "Modal" + size + cy + "Close"
   }, /*#__PURE__*/React$1.createElement(IcoClose, {
-    cy: `Modal${cy}`
+    cy: "Modal" + cy
   }))), /*#__PURE__*/React$1.createElement("div", {
     className: "modal-content",
-    "data-cy": `Modal${size}${cy}ContentContainer`
+    "data-cy": "Modal" + size + cy + "ContentContainer"
   }, children), actions ? /*#__PURE__*/React$1.createElement("div", {
     className: "modal-actions",
-    "data-cy": `Modal${size}${cy}ActionsContainer`
+    "data-cy": "Modal" + size + cy + "ActionsContainer"
   }, /*#__PURE__*/React$1.createElement(Button, {
     color: "secondary",
     variant: "outline",
     onClick: close,
-    cy: `Modal${size}${cy}Close`
+    cy: "Modal" + size + cy + "Close"
   }, closeText), actions) : null));
 };
 
-const textDefault = {
+var textDefault = {
   de: 'of',
   paginas: 'pages',
   itens: 'Registers',
@@ -2461,20 +2495,22 @@ const textDefault = {
   reload: 'Update'
 };
 function Paginate(_ref) {
-  let {
-    data = {
+  var _ref$data = _ref.data,
+    data = _ref$data === void 0 ? {
       pageNumber: 0,
       totalPages: 1,
       totalElements: 0
-    },
-    action,
-    text = textDefault
-  } = _ref;
-  const [paginateTemp, setPaginateTemp] = useState(String(data.pageNumber ? data.pageNumber : 1));
-  const changePaginate = event => {
+    } : _ref$data,
+    action = _ref.action,
+    _ref$text = _ref.text,
+    text = _ref$text === void 0 ? textDefault : _ref$text;
+  var _useState = useState(String(data.pageNumber ? data.pageNumber : 1)),
+    paginateTemp = _useState[0],
+    setPaginateTemp = _useState[1];
+  var changePaginate = function changePaginate(event) {
     setPaginateTemp(event.target.value);
   };
-  const reloadPaginate = event => {
+  var reloadPaginate = function reloadPaginate(event) {
     if (event || event === 0) {
       if (event <= data.totalPages) {
         setPaginateTemp(event + 1);
@@ -2491,7 +2527,9 @@ function Paginate(_ref) {
   }, /*#__PURE__*/React$1.createElement(Button, {
     type: "btn circle",
     color: "primary",
-    onClick: () => reloadPaginate(data.pageNumber - 1),
+    onClick: function onClick() {
+      return reloadPaginate(data.pageNumber - 1);
+    },
     disabled: data.pageNumber === 0 ? true : false
   }, text.before), /*#__PURE__*/React$1.createElement("div", {
     className: "page-item"
@@ -2499,35 +2537,44 @@ function Paginate(_ref) {
     type: "number",
     name: "paginate",
     value: paginateTemp,
-    onChange: event => changePaginate(event)
+    onChange: function onChange(event) {
+      return changePaginate(event);
+    }
   }), /*#__PURE__*/React$1.createElement(Button, {
     type: "btn circle",
     color: "primary",
-    onClick: () => reloadPaginate(),
+    onClick: function onClick() {
+      return reloadPaginate();
+    },
     disabled: data.totalElements === 0 ? true : false
   }, text.reload)), /*#__PURE__*/React$1.createElement(Button, {
     type: "btn circle",
     color: "primary",
-    onClick: () => reloadPaginate(data.pageNumber + 1),
+    onClick: function onClick() {
+      return reloadPaginate(data.pageNumber + 1);
+    },
     disabled: data.pageNumber >= data.totalPages - 1 ? true : false
   }, text.next), /*#__PURE__*/React$1.createElement("span", {
     className: "pagination-info"
-  }, `${data.pageNumber ? data.pageNumber + 1 : 1} ${text.de} ${data.totalPages ? data.totalPages : 0} ${text.paginas}`, ` - ${data.totalElements ? data.totalElements : 0} ${text.itens}`));
+  }, (data.pageNumber ? data.pageNumber + 1 : 1) + " " + text.de + " " + (data.totalPages ? data.totalPages : 0) + " " + text.paginas, " - " + (data.totalElements ? data.totalElements : 0) + " " + text.itens));
 }
 
-const modalRight = _ref => {
-  let {
-    Ref,
-    Children,
-    open = false,
-    style = {
-      maxHeight: `calc(100vh - 0px)`,
+var modalRight = function modalRight(_ref) {
+  var Ref = _ref.Ref,
+    Children = _ref.Children,
+    _ref$open = _ref.open,
+    open = _ref$open === void 0 ? false : _ref$open,
+    _ref$style = _ref.style,
+    style = _ref$style === void 0 ? {
+      maxHeight: "calc(100vh - 0px)",
       width: '260px',
-      top: `0px`
-    },
-    action = () => null
-  } = _ref;
-  UseOutsideClick(Ref, e => {
+      top: "0px"
+    } : _ref$style,
+    _ref$action = _ref.action,
+    action = _ref$action === void 0 ? function () {
+      return null;
+    } : _ref$action;
+  UseOutsideClick(Ref, function (e) {
     if (open) {
       action(e);
     }
@@ -2542,19 +2589,24 @@ const modalRight = _ref => {
   }, Children));
 };
 
-const Tab = _ref => {
-  let {
-    data,
-    tabSelect = '',
-    actionTab,
-    type,
-    cy
-  } = _ref;
-  const [tabState, setTabState] = useState([]);
-  const [tabStateId, setTabStateId] = useState("");
-  useEffect(() => {
+var Tab = function Tab(_ref) {
+  var data = _ref.data,
+    _ref$tabSelect = _ref.tabSelect,
+    tabSelect = _ref$tabSelect === void 0 ? '' : _ref$tabSelect,
+    actionTab = _ref.actionTab,
+    type = _ref.type,
+    cy = _ref.cy;
+  var _useState = useState([]),
+    tabState = _useState[0],
+    setTabState = _useState[1];
+  var _useState2 = useState(""),
+    tabStateId = _useState2[0],
+    setTabStateId = _useState2[1];
+  useEffect(function () {
     if (data) {
-      const selectTab = data.filter(e => e.id === (tabSelect ? tabSelect : data[0].id));
+      var selectTab = data.filter(function (e) {
+        return e.id === (tabSelect ? tabSelect : data[0].id);
+      });
       if (selectTab.length) {
         setTabState(selectTab[0].content);
         setTabStateId(selectTab[0].id);
@@ -2563,18 +2615,22 @@ const Tab = _ref => {
   }, [data]);
   return /*#__PURE__*/React$1.createElement("div", {
     className: type === 'custom' ? 'custom-tab' : 'box-tab',
-    "data-cy": `${type}Tab${cy}FullContainer`
+    "data-cy": type + "Tab" + cy + "FullContainer"
   }, /*#__PURE__*/React$1.createElement("div", {
     className: "tab-head",
-    "data-cy": `${type}Tab${cy}Header`
-  }, data === null || data === void 0 ? void 0 : data.map(e => /*#__PURE__*/React$1.createElement("div", {
-    key: e.id,
-    className: e.id === tabStateId ? 'active' : '',
-    onClick: () => [setTabStateId(e.id), setTabState(e.content), actionTab(e.id)],
-    "data-cy": `Tab${e.id}ClickShow${cy}`
-  }, e.title))), /*#__PURE__*/React$1.createElement("div", {
+    "data-cy": type + "Tab" + cy + "Header"
+  }, data === null || data === void 0 ? void 0 : data.map(function (e) {
+    return /*#__PURE__*/React$1.createElement("div", {
+      key: e.id,
+      className: e.id === tabStateId ? 'active' : '',
+      onClick: function onClick() {
+        return [setTabStateId(e.id), setTabState(e.content), actionTab(e.id)];
+      },
+      "data-cy": "Tab" + e.id + "ClickShow" + cy
+    }, e.title);
+  })), /*#__PURE__*/React$1.createElement("div", {
     className: "tab-content",
-    "data-cy": `${type}Tab${cy}ContentContainer`
+    "data-cy": type + "Tab" + cy + "ContentContainer"
   }, tabState));
 };
 
