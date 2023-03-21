@@ -175,6 +175,8 @@ var Alert = function Alert() {
   })));
 };
 
+require('./index.css');
+
 exports.ADD_ALERT = ADD_ALERT;
 exports.AddAlert = AddAlert;
 exports.Alert = Alert;

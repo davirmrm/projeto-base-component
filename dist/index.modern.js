@@ -173,5 +173,7 @@ var Alert = function Alert() {
   })));
 };
 
+require('./index.css');
+
 export { ADD_ALERT, AddAlert, Alert, Button, REMOVE_ALERT, RemoveAlert };
 //# sourceMappingURL=index.modern.js.map
