@@ -1,6 +1,5 @@
 import React from 'react';
 import './button.scss';
-// import { ButtonBGI } from  './styled';
 
 export const Button = ({
   children,
@@ -15,11 +14,6 @@ export const Button = ({
   return (
     <button
       data-cy={`Button${cy}`}
-      type={type}
-      color={color}
-      variant={variant}
-      size={size}
-      
       className={props.className ? props.className : `${type} ${color} ${variant} ${size} `}
       onClick={action}
       {...props}
