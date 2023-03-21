@@ -1,5 +1,5 @@
 import React from 'react';
-import style from './button.scss';
+import './button.scss';
 
 export const Button = ({
   children,
@@ -14,7 +14,7 @@ export const Button = ({
   return (
     <button
       data-cy={`Button${cy}`}
-      className={props.className ? props.className : `${style[type]} ${style[type][variant]} ${style[type][variant][color]} ${style[type][size]} `}
+      className={props.className ? props.className : `${type} ${color} ${variant} ${size} `}
       onClick={action}
       {...props}
     >

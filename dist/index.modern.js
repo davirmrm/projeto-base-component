@@ -114,8 +114,6 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var style = {"btn":"_2mJKJ","circle":"_3ARop","transparent":"_3_cOP","small":"_2uwT7","block":"_3Roxm","normal":"_1HcHX","primary":"_1vqqk","secondary":"_18RZ3","success":"_1lzPR","warning":"_8OnPu","danger":"_1xBRM","outline":"_2DS6n","outlined":"_2YTqR","link":"_2jSDj"};
-
 var _excluded = ["children", "type", "color", "variant", "size", "action", "cy"];
 var Button = function Button(_ref) {
   var children = _ref.children,
@@ -136,7 +134,7 @@ var Button = function Button(_ref) {
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
   return /*#__PURE__*/React.createElement("button", _extends({
     "data-cy": "Button" + cy,
-    className: props.className ? props.className : style[type] + " " + style[type][variant] + " " + style[type][variant][color] + " " + style[type][size] + " ",
+    className: props.className ? props.className : type + " " + color + " " + variant + " " + size + " ",
     onClick: action
   }, props), children);
 };
@@ -172,8 +170,6 @@ var Alert = function Alert() {
     })));
   })));
 };
-
-require('./index.css');
 
 export { ADD_ALERT, AddAlert, Alert, Button, REMOVE_ALERT, RemoveAlert };
 //# sourceMappingURL=index.modern.js.map
