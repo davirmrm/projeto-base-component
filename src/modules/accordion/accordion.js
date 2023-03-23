@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { IcoAdd, IcoMinus } from '..';
-import './accordion.scss';
+import style from './accordion.module.scss';
 
 export const Accordion = ({
   data=[],
@@ -22,14 +22,14 @@ export const Accordion = ({
   }, [data, tabSelect]);
 
   return (
-    <div className={`${type === 'custom' ? 'custom-tab' : 'box-tab'} `} data-cy={`Accordion${cy}FullContainer`}>
+    <div className={`${type === 'custom' ? style['custom-tab'] : style['box-tab']} `} data-cy={`Accordion${cy}Container`}>
       {data?.map((e) => (
         <div 
         key={`accordion-${e.id}`} 
-        className={e.id === tabStateId ? 'open' : ''} 
-        data-cy={`Accordion${cy}[${e.id}]Container`}>
+        className={e.id === tabStateId ? style['open'] : ''} 
+        data-cy={`Accordion${cy}[${e.id}]Content`}>
           <div
-            className="accordion-header"
+            className={style["accordion-header"]}
             onClick={() => [
               setTabStateId(tabStateId === e.id ? '' : e.id),
               actionTab(e.id),
@@ -39,7 +39,7 @@ export const Accordion = ({
             <h6 data-cy={`Accordion${cy}${e.id}Title`}>{e.title}</h6>
             <span data-cy={`Accordion${cy}${e.id}TitleIcon`}>{e.id === tabStateId ? <IcoMinus cy={`Accordion${cy}${e.id}`}/> : <IcoAdd cy={`Accordion${cy}${e.id}`}/>}</span>
           </div>
-          <div className="accordion-container" data-cy={`Accordion${cy}${e.id}ContentContainer`}>{e.content}</div>
+          <div className={style["accordion-container"]} data-cy={`Accordion${cy}${e.id}ContentContainer`}>{e.content}</div>
         </div>
       ))}
     </div>

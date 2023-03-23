@@ -1,0 +1,110 @@
+.form-box {
+  position: relative;
+  margin-bottom: 8px;
+  padding-top: 8px;
+}
+.form-box.disabled .check-box {
+  cursor: no-drop;
+}
+.form-box label {
+  color: var(--input-color);
+  display: block;
+  font-size: 1em;
+  margin-bottom: 6px;
+}
+.form-box > div {
+  position: relative;
+  background-color: var(--input-bg);
+  border-radius: 3px;
+  color: var(--input-color);
+  display: flex;
+  align-items: center;
+  padding: 0 5px;
+}
+.form-radiobutton {
+  padding: 0;
+}
+.form-radiobutton label {
+  padding: 0;
+}
+.radio-box {
+  align-items: center;
+  color: var(--input-color);
+  cursor: pointer;
+  display: inline-flex;
+  line-height: 26px;
+  margin-right: 10px;
+}
+.radio-box:last-child {
+  margin-right: 0px;
+}
+
+.radio-box .radiobutton {
+  border: 1px solid var(--input-bgh);
+  border-radius: 50%;
+  display: inline-block;
+  height: 20px;
+  margin-right: 8px;
+  position: relative;
+  transition: all 0.3s;
+  width: 20px;
+}
+.radio-box.checked .radiobutton {
+  background-color: var(--primary-bg);
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 0px 2px var(--primary-color);
+  transition: all 0.3s;
+}
+
+.label-input{
+  margin-bottom: 6px;
+}
+.input-label-span-text{
+  font-size: 14px;
+}
+
+.form-box .label-input .required-label {
+  color: var(--error-bgh);
+}
+.form-box.erro > .input-wrapper,
+.form-box.erro.form-select-box > div {
+  border: 1px solid var(--error-bgh);
+}
+.form-box.success > .input-wrapper,
+.form-box.success.form-select-box > div {
+  border: 1px solid var(--primary-bgh);
+}
+.form-box .campo-obrigatorio {
+  color: var(--error-bgh);
+  padding: 0 0 0 0;
+  font-size: 14px;
+  display: block;
+}
+
+.input-and-error-message-container{
+  height: 120px;
+}.form-radiobutton > div {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.form-radiobutton.list > div {
+  align-items: flex-start;
+  flex-direction: column;
+}
+.form-radiobutton.list .check-box {
+  margin-left: 0px;
+}
+.form-radiobutton.secondary .check-box.checked .switch {
+  background-color: var(--secondary-bg);
+}
+.form-radiobutton.success .check-box.checked .switch {
+  background-color: var(--success-bg);
+}
+.form-radiobutton.warning .check-box.checked .switch {
+  background-color: var(--warning-bg);
+}
+.form-radiobutton.danger .check-box.checked .switch {
+  background-color: var(--danger-bg);
+}

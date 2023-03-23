@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
-import './pagination.scss'
+import style from './paginate.module.scss'
 import { Button } from '../button/button'
 // import { IcoArrowForward, IcoArrowBack, IcoSpinner } from '../icon'
 
 const textDefault = {
-  de: 'of',
-  paginas: 'pages',
-  itens: 'Registers',
   next: 'Next',
   before: 'Previous',
   reload: 'Update'
@@ -14,13 +11,31 @@ const textDefault = {
   // before: <IcoArrowBack />,
   // reload: <IcoSpinner />
 }
-export function Paginate({ data = { pageNumber: 0, totalPages: 1, totalElements: 0 }, action, text = textDefault }) {
+const textDefaultInfo = '<<pageNumber>> of <<totalPages>> - <<totalElements>> Registers'
+
+export const Paginate = ({ 
+  data = { 
+    pageNumber: 0, 
+    totalPages: 1, 
+    totalElements: 0 
+  }, 
+  action=()=> null, 
+  text = textDefault,
+  textInfo = textDefaultInfo,
+}) => {
   const [paginateTemp, setPaginateTemp] = useState(String(data.pageNumber ? data.pageNumber : 1))
+
+  const textInfoChange = e => {
+    return  e
+    .replace(`<<pageNumber>>`, data.pageNumber ? data.pageNumber + 1 : 1)
+    .replace(`<<totalPages>>`, data.totalPages ? data.totalPages : 0)
+    .replace(`<<totalElements>>`, data.totalElements ? data.totalElements : 0);
+  }
 
   const changePaginate = event => {
     setPaginateTemp(event.target.value)
   }
-
+  
   const reloadPaginate = event => {
     if (event || event === 0) {
       if (event <= data.totalPages) {
@@ -35,21 +50,21 @@ export function Paginate({ data = { pageNumber: 0, totalPages: 1, totalElements:
   }
 
   return (
-    <div className='pagination-custom'>
+    <div className={style['paginate-custom']}>
       <Button
-        type='btn circle'
+        type='circle'
         color='primary'
-        onClick={() => reloadPaginate(data.pageNumber - 1)}
+        action={() => reloadPaginate(data.pageNumber - 1)}
         disabled={data.pageNumber === 0 ? true : false}
       >
         {text.before}
       </Button>
-      <div className='page-item'>
+      <div className={style['page-item']}>
         <input type='number' name='paginate' value={paginateTemp} onChange={event => changePaginate(event)} />
         <Button
-          type='btn circle'
+          type='circle'
           color='primary'
-          onClick={() => reloadPaginate()}
+          action={() => reloadPaginate()}
           disabled={data.totalElements === 0 ? true : false}
         >
           {text.reload}
@@ -57,17 +72,16 @@ export function Paginate({ data = { pageNumber: 0, totalPages: 1, totalElements:
       </div>
 
       <Button
-        type='btn circle'
+        type='circle'
         color='primary'
-        onClick={() => reloadPaginate(data.pageNumber + 1)}
+        action={() => reloadPaginate(data.pageNumber + 1)}
         disabled={data.pageNumber >= data.totalPages - 1 ? true : false}
       >
         {text.next}
       </Button>
 
-      <span className='pagination-info'>
-        {`${data.pageNumber ? data.pageNumber + 1 : 1} ${text.de} ${data.totalPages ? data.totalPages : 0} ${text.paginas}`}
-        {` - ${data.totalElements ? data.totalElements : 0} ${text.itens}`}
+      <span className={style['paginate-info']}>
+        {textInfoChange(textInfo)}
       </span>
     </div>
   )

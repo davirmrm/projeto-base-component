@@ -1,9 +1,15 @@
 import React, { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { history } from '../../helpers/history';
-import './menu.scss';
+import style from './menu.module.scss';
 
-export const Menu = ({ children, data, action = () => null, cy='' }) => {
+export const Menu = ({ 
+  children, 
+  data=[], 
+  action = () => null, 
+  cy='',
+  itemActive=''
+}) => {
   const location = useLocation();
   const isActive = (address) => location.pathname === address;
   const actionMenu = (e) => {
@@ -17,15 +23,15 @@ export const Menu = ({ children, data, action = () => null, cy='' }) => {
   };
 
   return (
-    <div className="menu" data-cy={`Menu${cy}`}>
+    <div className={style.menu} data-cy={`Menu${cy}`}>
       {data && data.length
         ? data.map((item) => {
             return (
               <button
                 key={item.id}
-                className={isActive(item.go) ? 'active' : ''}
+                className={isActive(item.go) ? style.active : ''}
                 onClick={() => actionMenu(item)}
-                data-cy={`MenuList${item.id}Optionclick${cy}`}
+                data-cy={`MenuList${item.id}item${cy}`}
               >
                 <span data-cy={`MenuItem${cy}IconOrLabel`}>{item.icon ? item.icon : null} {item.label}</span>
               </button>

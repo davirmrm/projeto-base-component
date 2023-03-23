@@ -1,0 +1,110 @@
+.form-input{
+  position: relative;
+  margin-bottom: 8px;
+  padding-top: 8px;
+  & > div{
+    position: relative;
+    background-color: var(--input-bg);
+    border-radius: 3px;
+    color: var(--input-color);
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    border: 1px solid var(--input-bgh);
+  }
+  label {
+    color: var(--input-color);
+    display: block;
+    font-size: 1em;
+    /* padding-bottom: 10px; */
+  }
+  input,
+  .input {
+    background-color: transparent;
+    border: none;
+    display: block;
+    font-size: 1em;
+    margin: 0;
+    padding: 4px 10px;
+    width: 100%;
+    min-height: 35px;
+    &[type='file'] {
+      padding: 5px 15px 5px 5px;
+    }
+    &[type='date'],
+    &[type='time'] {
+      padding: 5px 5px 5px 15px;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  .input-actions {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    &-left {
+      align-items: center;
+      display: flex;
+      height: 100%;
+    }
+    button {
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      border-radius: 50px;
+      color: var(--input-color);
+      cursor: pointer;
+    
+      display: flex;
+      font-size: 20px;
+      justify-content: center;
+      min-height: 30px;
+      min-width: 30px;
+      padding: 7px;
+      &:hover {
+        background-color: var(--secondary-bgh);
+        color: var(--secondary-color);
+      }
+      &:active {
+        position: relative;
+        top: 1px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  &.disabled .check-box {
+    cursor: no-drop;
+  }
+  .label-input{
+    margin-bottom: 6px;
+    .required-label {
+      color: var(--error-bgh);
+    }
+  }
+  .input-label-span-text{
+    font-size: 14px;
+  }
+  
+  &.erro > .input-wrapper,
+  &.erro.form-select-box > div {
+    border: 1px solid var(--error-bgh);
+  }
+  &.success > .input-wrapper,
+  &.success.form-select-box > div {
+    border: 1px solid var(--primary-bgh);
+  }
+  .campo-obrigatorio {
+    color: var(--error-bgh);
+    padding: 0 0 0 0;
+    font-size: 14px;
+    display: block;
+  }
+  
+  .input-and-error-message-container{
+    height: 120px;
+  }
+}
+

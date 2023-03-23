@@ -1,11 +1,12 @@
 import React from 'react';
+import style from './radiobutton.module.scss';
 
 export const RadioButton = ({
-  options,
-  action,
-  checked,
-  label,
-  name,
+  options=[],
+  action=()=>null,
+  checked={},
+  label='',
+  name='',
   type = 'radiobutton',
   color = '',
   optionLabel = 'name',
@@ -24,25 +25,26 @@ export const RadioButton = ({
   const capitalizedName = name[0].toUpperCase() + name.substring(1);
 
   return (
-    <div className={`form-box form-radiobutton ${type} ${color} `}>
+    <div 
+      className={`${style[`form-radiobutton`]} ${style[type]} ${style[color]}`}
+    >
       <label htmlFor={`id-${name}`} data-cy={`FormRadiobutton${capitalizedName}${cy}`}>{label}</label>
-      <div className="radio-button-container">
+      <div className={style["radio-button-container"]}>
         {options
           ? options.map((c) => {
               return (
                 <div
                   key={`${name}-${c[optionValue]}`}
-                  className={`radio-box ${veryfiChecked(c) ? 'checked' : ''}`}
+                  className={`${style['radio-box']} ${veryfiChecked(c) ? style.checked : ''}`}
                   onClick={() => checkedAction(c)}
                   data-cy={`FormRadioButton${capitalizedName}OptionClick${c[optionValue]}${cy}`}
                 >
                   <span 
                   data-cy={`FormRadioButton${capitalizedName}OptionClick${c[optionValue]}${cy}Label`} 
-                  className={type}
+                  className={style[type]}
                   >
-
-                    {c[optionLabel]}
                   </span>
+                  {c[optionLabel]}
                 </div>
               );
             })

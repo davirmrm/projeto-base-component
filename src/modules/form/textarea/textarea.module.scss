@@ -1,0 +1,112 @@
+.form-textarea {
+  position: relative;
+  margin-bottom: 8px;
+  padding-top: 8px;
+  label {
+    color: var(--input-color);
+    display: block;
+    font-size: 1em;
+    padding-bottom: 6px;
+  }
+  & > div {
+    position: relative;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-bgh);
+    border-radius: 3px;
+    color: var(--input-color);
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+  }
+  textarea {
+    background-color: transparent;
+    border: none;
+    display: block;
+    font-size: 1em;
+    margin: 0;
+    padding: 4px 10px;
+    width: 100%;
+    min-height: 35px;
+    &:focus {
+      outline: none;
+    }
+  }
+  &.disabled .check-box {
+    cursor: no-drop;
+  }
+  .textarea-actions {
+    height: 100%;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    button {
+      align-items: center;
+      background-color: transparent;
+      border: none;
+      border-radius: 50%;
+      color: var(--secondary-color);
+      cursor: pointer;
+    
+      display: flex;
+      font-size: 14px;
+      height: 30px;
+      justify-content: center;
+      width: 30px;
+      &:hover {
+        background-color: var(--secondary-bgh);
+      }
+      &:active {
+        position: relative;
+        top: 1px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  
+  .label-input{
+    margin-bottom: 6px;
+  }
+  .input-label-span-text{
+    font-size: 14px;
+  }
+  
+  .label-input .required-label {
+    color: var(--error-bgh);
+  }
+  &.erro > .input-wrapper,
+  &.erro.form-select-box > div {
+    border: 1px solid var(--error-bgh);
+  }
+  &.success > .input-wrapper,
+  &.success.form-select-box > div {
+    border: 1px solid var(--primary-bgh);
+  }
+  .campo-obrigatorio {
+    color: var(--error-bgh);
+    padding: 0 0 0 0;
+    font-size: 14px;
+    display: block;
+  }
+  
+  .input-and-error-message-container{
+    height: 120px;
+  }
+  
+  
+  
+  
+  .ck.ck-editor__main > .ck-editor__editable {
+    min-height: 60px;
+  }
+  .ck.ck-editor__editable_inline .font-16 {
+    font-size: 16px;
+  }
+  .ck.ck-editor__editable_inline .font-18 {
+    font-size: 18px;
+  }
+  .ck.ck-editor__editable_inline p {
+    margin: 0 0 10px 0;
+  }
+}

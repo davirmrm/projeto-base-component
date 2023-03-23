@@ -10,15 +10,17 @@ var Portal = (function (_ref) {
   var children = _ref.children,
     name = _ref.name;
   var nameRandom = ((1 + Math.random()) * 0x10000 | 0).toString(16).substring(1);
-  var modalRoot = document.getElementById("root-" + name);
+  var modalRoot = document.getElementById("" + name);
   if (!modalRoot) {
     var tempEl = document.createElement('div');
-    tempEl.id = "root-" + (name ? name : nameRandom);
+    tempEl.id = "" + (name ? name : nameRandom);
     document.body.append(tempEl);
     modalRoot = tempEl;
   }
   return ReactDOM.createPortal(children, modalRoot);
 });
+
+var style = {"rootalert":"_1xbQ6","box-alert":"_1l-hb","close":"_Wgc3O","primary":"_RoT7f","secondary":"_tWP2U","success":"_3GQIf","error":"_2j0Hg","warning":"_3MmHW","progressBar":"_18ASX","slideIn":"_MIvDG","slideOut":"_2e8oW"};
 
 const IcoAdd = _ref => {
   let {
@@ -854,7 +856,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-var style = {"btn":"_eAuVk","circle":"_NCm2b","transparent":"_2x2a4","small":"_5D_-7","block":"_1PoNo","normal":"_10TNW","primary":"_29gK8","secondary":"_1w_Nl","success":"_1pfep","warning":"_3KVHD","danger":"_3GB6C","outline":"_31GvI","outlined":"_3zX7m","link":"_3FCIG"};
+var style$1 = {"btn":"_eAuVk","circle":"_NCm2b","transparent":"_2x2a4","small":"_5D_-7","block":"_1PoNo","normal":"_10TNW","primary":"_29gK8","secondary":"_1w_Nl","success":"_1pfep","warning":"_3KVHD","danger":"_3GB6C","outline":"_31GvI","outlined":"_3zX7m","link":"_3FCIG"};
 
 var _excluded = ["children", "type", "color", "variant", "size", "action", "cy"];
 var Button = function Button(_ref) {
@@ -876,7 +878,7 @@ var Button = function Button(_ref) {
     props = _objectWithoutPropertiesLoose(_ref, _excluded);
   return /*#__PURE__*/React$1__default.createElement("button", _extends({
     "data-cy": "Button" + cy,
-    className: style[type] + " " + style[variant] + " " + style[color] + " " + style[size],
+    className: style$1[type] + " " + style$1[variant] + " " + style$1[color] + " " + style$1[size],
     onClick: action
   }, props), children);
 };
@@ -887,14 +889,14 @@ var Alert = function Alert() {
     return state.alerts;
   });
   return /*#__PURE__*/React$1__default.createElement(Portal, {
-    name: "alert"
+    name: style.rootalert
   }, /*#__PURE__*/React$1__default.createElement(Fragment, null, alerts === null || alerts === void 0 ? void 0 : alerts.map(function (alert) {
     setTimeout(function () {
       dispatch(RemoveAlert(alert.id));
     }, alert.time ? alert.time : 3000);
     return /*#__PURE__*/React$1__default.createElement("div", {
       key: alert.id,
-      className: "box-alert alert-" + alert.type,
+      className: style['box-alert'] + " " + style[alert.type],
       "data-cy": "Alert" + alert.id
     }, /*#__PURE__*/React$1__default.createElement("div", {
       dangerouslySetInnerHTML: {
@@ -902,7 +904,7 @@ var Alert = function Alert() {
       },
       "data-cy": "Alert" + alert.id + "Message"
     }), /*#__PURE__*/React$1__default.createElement(Button, {
-      className: "alert-close",
+      className: style.close,
       action: function action() {
         return dispatch(RemoveAlert(alert.id));
       },
@@ -1084,6 +1086,8 @@ var validarNumber = function validarNumber(e) {
   return false;
 };
 
+var style$2 = {"box-tab":"_1svCu","accordion-header":"_2KrLZ","accordion-content":"_GWz5r","accordion-container":"_1l2Vh","open":"_1nCv1","custom-tab":"_1uPLU","expandY":"_3ceVW"};
+
 var Accordion = function Accordion(_ref) {
   var _ref$data = _ref.data,
     data = _ref$data === void 0 ? [] : _ref$data,
@@ -1110,15 +1114,15 @@ var Accordion = function Accordion(_ref) {
     }
   }, [data, tabSelect]);
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: (type === 'custom' ? 'custom-tab' : 'box-tab') + " ",
-    "data-cy": "Accordion" + cy + "FullContainer"
+    className: (type === 'custom' ? style$2['custom-tab'] : style$2['box-tab']) + " ",
+    "data-cy": "Accordion" + cy + "Container"
   }, data === null || data === void 0 ? void 0 : data.map(function (e) {
     return /*#__PURE__*/React$1__default.createElement("div", {
       key: "accordion-" + e.id,
-      className: e.id === tabStateId ? 'open' : '',
-      "data-cy": "Accordion" + cy + "[" + e.id + "]Container"
+      className: e.id === tabStateId ? style$2['open'] : '',
+      "data-cy": "Accordion" + cy + "[" + e.id + "]Content"
     }, /*#__PURE__*/React$1__default.createElement("div", {
-      className: "accordion-header",
+      className: style$2["accordion-header"],
       onClick: function onClick() {
         return [setTabStateId(tabStateId === e.id ? '' : e.id), actionTab(e.id)];
       },
@@ -1132,17 +1136,19 @@ var Accordion = function Accordion(_ref) {
     }) : /*#__PURE__*/React$1__default.createElement(IcoAdd, {
       cy: "Accordion" + cy + e.id
     }))), /*#__PURE__*/React$1__default.createElement("div", {
-      className: "accordion-container",
+      className: style$2["accordion-container"],
       "data-cy": "Accordion" + cy + e.id + "ContentContainer"
     }, e.content));
   }));
 };
 
+var style$3 = {"form-checkbox":"_3ka-m","disabled":"_y_UfZ","check-box":"_1CVbM","checkbox":"_iSySY","checked":"_mbgm6","switch":"_11J1x","list":"_21sjd","label-input":"_3gaWY","input-label-span-text":"_1_PkN","required-label":"_3XsC8","erro":"_2kdTg","input-wrapper":"_1n3eO","form-select-box":"_3OAqW","success":"_1x7Mr","campo-obrigatorio":"_13rOO","input-and-error-message-container":"_2WBjn","secondary":"_3FxGc","warning":"_1rJam","danger":"_U8mpF"};
+
 const Checkbox = _ref => {
   let {
     options,
     action,
-    checked,
+    checked = [],
     label,
     name,
     type = 'checkbox',
@@ -1174,15 +1180,25 @@ const Checkbox = _ref => {
     }
   };
   const checkedAction = e => {
+    console.log(e, 'checkedAction', checked);
     if (e !== undefined) {
-      const resp = options ? e ? veryfiCheck(e) : [] : e;
-      const fullResponse = {
-        name: name,
-        value: resp,
-        type: type,
-        id: cy
+      let respost = {
+        name,
+        value: e
       };
-      action && action(e, fullResponse);
+      if (options) {
+        const resp = options ? e ? veryfiCheck(e) : [] : e;
+        console.warn('resp', resp);
+        const fullResponse = {
+          name,
+          value: [...checked, ...resp],
+          type: type,
+          id: cy
+        };
+        respost = fullResponse;
+      }
+      console.log(respost, 'respost');
+      action && action(respost);
     }
   };
   const veryfiChecked = e => {
@@ -1192,7 +1208,8 @@ const Checkbox = _ref => {
       if (checked.length === 0) {
         return false;
       } else {
-        const verify = checked.filter(elem => {
+        console.log(checked, 'checked');
+        const verify = checked === null || checked === void 0 ? void 0 : checked.filter(elem => {
           return elem[optionValue] === e[optionValue] ? elem : null;
         });
         if (verify.length === 0) {
@@ -1204,32 +1221,32 @@ const Checkbox = _ref => {
     }
   };
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: `form-box form-checkbox ${type} ${color} ${disabled ? 'disabled' : ''}`
+    className: `${style$3[`form-checkbox`]} ${style$3[type]} ${style$3[color]} ${style$3[`${disabled ? 'disabled' : ''}`]}`
   }, label ? /*#__PURE__*/React$1__default.createElement("label", {
     htmlFor: `id-${name}`,
     "data-cy": `FormCheckbox${name}${cy}`
-  }, label) : null, options ? options.map((c, index) => {
+  }, label) : null, options ? options === null || options === void 0 ? void 0 : options.map((c, index) => {
     return /*#__PURE__*/React$1__default.createElement("div", {
       key: `checkbox-${name}-${index}`,
-      className: `${name}-wrapper`
+      className: style$3[`${name}-wrapper`]
     }, /*#__PURE__*/React$1__default.createElement("div", {
       key: `${name}-${c[optionValue]}`,
-      className: `check-box ${veryfiChecked(c) ? 'checked' : ''}`,
+      className: `${style$3[`check-box`]} ${style$3[`${veryfiChecked(c) ? 'checked' : ''}`]}`,
       onClick: () => checkedAction(!disabled ? c : null),
       "data-cy": `FormCheckbox${name}Optionclick${c[optionValue]}${cy}`
     }, /*#__PURE__*/React$1__default.createElement("span", {
-      className: type,
+      className: style$3[type],
       style: veryfiChecked(c) && (colorCustom || c.color) ? {
         backgroundColor: colorCustom ? colorCustom : c.color
       } : {},
       "data-cy": `FormCheckbox${name}Label${c[optionLabel]}`
     }), c[optionLabel]), c.right ? optionRight : null, " ", c.textRight ? textRight : null);
   }) : /*#__PURE__*/React$1__default.createElement("div", {
-    className: `check-box ${checked ? 'checked' : ''}`,
+    className: `${style$3['check-box']} ${checked ? style$3.checked : ''}`,
     onClick: () => checkedAction(!disabled ? !checked : false),
     "data-cy": `FormCheckbox${name}Optionclick${cy}`
   }, /*#__PURE__*/React$1__default.createElement("span", {
-    className: type,
+    className: style$3[type],
     style: checked && colorCustom ? {
       backgroundColor: colorCustom
     } : {},
@@ -1237,19 +1254,23 @@ const Checkbox = _ref => {
   }), text));
 };
 
+var style$4 = {"form-input":"_2N_Fm","input":"_MlgXj","input-actions":"_1R7iH","input-actions-left":"_2Q30Z","disabled":"_1JEOw","check-box":"_yV7KM","label-input":"_831hh","required-label":"_1EAMC","input-label-span-text":"_1ysVZ","erro":"_4ZqNh","input-wrapper":"_3OR8G","form-select-box":"_2FL3C","success":"_3G-J2","campo-obrigatorio":"_36Tgq","input-and-error-message-container":"_3rtu1"};
+
 const Input = _ref => {
   var _required$erro;
   let {
     action = () => null,
-    actionBlur,
+    actionBlur = () => null,
     type = 'text',
     color = '',
     required,
     placeholder = '',
     cy = "",
-    label,
+    label = "",
     name = "",
-    value,
+    value = "",
+    left = null,
+    right = null,
     ...props
   } = _ref;
   const pattern = e => {
@@ -1270,20 +1291,20 @@ const Input = _ref => {
     if (actionBlur) actionBlur(e.target, v);
   };
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: `form-box form-input ${color} ${required && (required.erro[name] ? 'erro' : '')} `
+    className: `${style$4[`form-input`]} ${style$4[color]} ${required && (required.erro[name] ? style$4.erro : '')}`
   }, label ? /*#__PURE__*/React$1__default.createElement("label", {
-    className: "label-input",
+    className: style$4["label-input"],
     htmlFor: `id-${name}`,
     "data-cy": `FormLabel${name}${cy}`
   }, required && require.length ? /*#__PURE__*/React$1__default.createElement("span", {
     className: "required-label"
   }, "*") : '', /*#__PURE__*/React$1__default.createElement("span", {
-    className: "input-label-span-text"
+    className: style$4['input-label-span-text']
   }, label)) : null, /*#__PURE__*/React$1__default.createElement("div", {
-    className: `input-${name}-wrapper input-wrapper`
-  }, props.left ? /*#__PURE__*/React$1__default.createElement("div", {
-    className: "input-actions-left"
-  }, props.left) : null, /*#__PURE__*/React$1__default.createElement("input", _extends({}, props, {
+    className: `${style$4[`input-${name}-wrapper`]} ${style$4[`input-wrapper`]}`
+  }, left ? /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$4["input-actions-left"]
+  }, left) : null, /*#__PURE__*/React$1__default.createElement("input", _extends({}, props, {
     "data-cy": `FormInput${name}${cy}`,
     id: `id-${name}`,
     type: type,
@@ -1293,21 +1314,23 @@ const Input = _ref => {
     onBlur: e => validarOnblur(e),
     pattern: pattern(),
     placeholder: placeholder
-  })), props.right ? /*#__PURE__*/React$1__default.createElement("div", {
-    className: "input-actions"
-  }, props.right) : null), required && (_required$erro = required.erro) !== null && _required$erro !== void 0 && _required$erro[name] ? /*#__PURE__*/React$1__default.createElement("span", {
-    className: "campo-obrigatorio",
+  })), right ? /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$4["input-actions"]
+  }, right) : null), required && (_required$erro = required.erro) !== null && _required$erro !== void 0 && _required$erro[name] ? /*#__PURE__*/React$1__default.createElement("span", {
+    className: style$4["campo-obrigatorio"],
     "data-cy": `FormError${name}${cy}`
   }, required.message) : null);
 };
 
+var style$5 = {"form-box":"_3YH4w","disabled":"_24pwr","check-box":"_27ViV","form-radiobutton":"_14Yg3","radio-box":"_vS3H9","radiobutton":"_1XiTm","checked":"_2TUdH","label-input":"_3n_LP","input-label-span-text":"_3QNqL","required-label":"_371ml","erro":"_3KJsD","input-wrapper":"_35m_n","form-select-box":"_1qg2a","success":"_W7GLz","campo-obrigatorio":"_3tg6D","input-and-error-message-container":"_3dJL_","list":"_1L6k_","secondary":"_32W16","switch":"_2YriW","warning":"_3QIHw","danger":"_CYfT5"};
+
 const RadioButton = _ref => {
   let {
-    options,
-    action,
-    checked,
-    label,
-    name,
+    options = [],
+    action = () => null,
+    checked = {},
+    label = '',
+    name = '',
     type = 'radiobutton',
     color = '',
     optionLabel = 'name',
@@ -1327,24 +1350,26 @@ const RadioButton = _ref => {
   };
   const capitalizedName = name[0].toUpperCase() + name.substring(1);
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: `form-box form-radiobutton ${type} ${color} `
+    className: `${style$5[`form-radiobutton`]} ${style$5[type]} ${style$5[color]}`
   }, /*#__PURE__*/React$1__default.createElement("label", {
     htmlFor: `id-${name}`,
     "data-cy": `FormRadiobutton${capitalizedName}${cy}`
   }, label), /*#__PURE__*/React$1__default.createElement("div", {
-    className: "radio-button-container"
+    className: style$5["radio-button-container"]
   }, options ? options.map(c => {
     return /*#__PURE__*/React$1__default.createElement("div", {
       key: `${name}-${c[optionValue]}`,
-      className: `radio-box ${veryfiChecked(c) ? 'checked' : ''}`,
+      className: `${style$5['radio-box']} ${veryfiChecked(c) ? style$5.checked : ''}`,
       onClick: () => checkedAction(c),
       "data-cy": `FormRadioButton${capitalizedName}OptionClick${c[optionValue]}${cy}`
     }, /*#__PURE__*/React$1__default.createElement("span", {
       "data-cy": `FormRadioButton${capitalizedName}OptionClick${c[optionValue]}${cy}Label`,
-      className: type
-    }, c[optionLabel]));
+      className: style$5[type]
+    }), c[optionLabel]);
   }) : null));
 };
+
+var style$6 = {"form-select-box":"_3Q7-l","disabled":"_1SHFj","check-box":"_FTxZL","select-selected":"_19sOo","open":"_nsK-k","input-label-span-text":"_1TiDO","label-input":"_NXdO_","required-label":"_1fYLj","erro":"_Q-kPp","input-wrapper":"_1Wo0x","success":"_1OwKo","campo-obrigatorio":"_HP-2b","input-and-error-message-container":"_1yzYI","select-box":"_3SBmc","select-filter":"_1Y2DF","input-actions":"_1Y-OH","select-all":"_2ZMqR","select-options":"_3hmxg","selected":"_yW-GH","sub":"_ZzcxY","multiselect":"_2YH_u","checkelement":"_4XCsv"};
 
 const chargeDefault = {
   max: 0,
@@ -1354,13 +1379,13 @@ const chargeDefault = {
 const Select = _ref => {
   var _required$erro;
   let {
-    options,
-    action,
-    actionClose,
-    actionFilter,
-    selected,
-    label,
-    name,
+    options = [],
+    action = () => null,
+    actionClose = () => null,
+    actionFilter = () => null,
+    selected = null,
+    label = '',
+    name = '',
     color = '',
     closeOnSelect = null,
     multiSelect = false,
@@ -1371,8 +1396,8 @@ const Select = _ref => {
     charge = chargeDefault,
     optionLabel = 'name',
     optionValue = 'id',
-    optionCustom,
-    labelCustom,
+    optionCustom = '',
+    labelCustom = '',
     required,
     cy,
     ...props
@@ -1428,10 +1453,10 @@ const Select = _ref => {
     setSelectState(options ? options : []);
   }, [options]);
   const veryfiMultiSelect = e => {
-    const verify = selected.filter(elem => {
+    const verify = selected === null || selected === void 0 ? void 0 : selected.filter(elem => {
       return elem[optionValue] === e[optionValue] ? elem : null;
     });
-    const res = selected.filter(elem => {
+    const res = selected === null || selected === void 0 ? void 0 : selected.filter(elem => {
       return elem[optionValue] !== e[optionValue] ? elem : null;
     });
     if (selected.length === 0) {
@@ -1516,15 +1541,15 @@ const Select = _ref => {
   };
   const require = required ? Object.keys(required) : undefined;
   return /*#__PURE__*/React.createElement("div", _extends({}, props, {
-    className: `form-box form-select-box ${color} ${require && required && (required.erro[name] ? 'erro' : '')} `
+    className: `${style$6['form-select-box']}  ${style$6[color]} ${require && required && (required.erro[name] ? style$6.erro : '')} `
   }), label ? /*#__PURE__*/React.createElement("label", {
-    className: "label-input",
+    className: style$6["label-input"],
     htmlFor: `id-${name}`,
     "data-cy": `SelectBoxLabel${name}`
   }, require ? /*#__PURE__*/React.createElement("span", {
-    className: "required-label"
+    className: style$6['required-label']
   }, "*") : '', " ", label) : null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Button, {
-    className: `select-selected ${selectOpen ? 'open' : ''}`,
+    className: `${style$6['select-selected']} ${selectOpen ? style$6.open : ''}`,
     onClick: e => openSelect({
       elem: e,
       value: !disabled ? !selectOpen : false
@@ -1534,45 +1559,48 @@ const Select = _ref => {
     name: "select"
   }, selectOpen ? /*#__PURE__*/React.createElement("div", {
     ref: ref,
-    className: `select-box select-${name} ${multiSelect ? 'multiselect' : ''}`,
+    className: `${style$6['select-box']} ${style$6[`select-${name}`]} ${multiSelect ? style$6.multiselect : ''}`,
     style: selectCoordinates
   }, filter && actionFilter ? /*#__PURE__*/React.createElement(FilterSelect, {
     clean: filter.clean,
-    action: e => [setSelectState(FilterAction(options, e)), actionFilter(options, e)],
+    action: e => [setSelectState(FilterAction(options, e)), actionFilter({
+      options,
+      value: String(e)
+    })],
     filter: filter.text,
     title: filter.title,
     text: filter.text,
     cy: cy
   }) : null, multiSelect ? /*#__PURE__*/React.createElement("div", {
     "data-cy": `MultiSelectContainer${cy}`,
-    className: `select-all ${selected.length > 0 && selected.length === options.length ? 'selected' : ''}`,
+    className: `${style$6['select-all']} ${selected.length > 0 && selected.length === options.length ? style$6.selected : ''}`,
     onClick: () => [selectAll(selected.length !== options.length ? true : ''), closeOnSelect ? closeAction(selected) : null]
   }, /*#__PURE__*/React.createElement("span", {
-    className: "checkelement",
+    className: style$6.checkelement,
     "data-cy": `MultiSelectSpan${cy}`
   }), textCustom[3]) : null, /*#__PURE__*/React.createElement("div", {
-    className: "select-options"
+    className: style$6["select-options"]
   }, !multiSelect && selectedItem ? /*#__PURE__*/React.createElement("div", {
-    className: selected === {} ? 'selected' : '',
+    className: selected === {} ? style$6.selected : '',
     onClick: e => [selectAction(''), closeOnSelect ? closeAction('') : null],
     "data-cy": `SelectedItemNotMultiSelect${textCustom[0]}`
   }, textCustom[0]) : null, selectState.map((e, i) => {
     return /*#__PURE__*/React.createElement("div", {
-      className: veryfiSelected(selectState[i]) ? 'selected' : '',
+      className: veryfiSelected(selectState[i]) ? style$6.selected : '',
       key: `${name}-${e[optionValue]}-${i}`,
       onClick: e => [selectAction(selectState[i]), closeOnSelect ? closeAction(selectState[i]) : null],
       "data-cy": `CheckElementContainer[${i}]`
     }, multiSelect ? /*#__PURE__*/React.createElement("span", {
-      className: "checkelement",
+      className: style$6.checkelement,
       "data-cy": `CheckElementSpan[${i}]`
     }) : null, optionCustom ? optionCustom(e) : e[optionLabel]);
   }), charge.max && !(selectState.length === charge.max) ? /*#__PURE__*/React.createElement(Button, {
-    className: "btn primary normal block",
-    onClick: charge.action,
+    color: "primary",
+    action: charge.action,
     title: charge.text,
     cy: `Select${charge.text}`
   }, charge.text) : null)) : null)), required !== null && required !== void 0 && (_required$erro = required.erro) !== null && _required$erro !== void 0 && _required$erro[name] ? /*#__PURE__*/React.createElement("span", {
-    className: "campo-obrigatorio",
+    className: style$6["campo-obrigatorio"],
     "data-cy": "MandatorySelectFieldSpan"
   }, required.message) : null);
 };
@@ -1584,7 +1612,7 @@ const FilterAction = function (d, e, n) {
 };
 const FilterSelect = _ref3 => {
   let {
-    action = params => null,
+    action = () => null,
     title = 'Filtrar',
     cy,
     clean = /*#__PURE__*/React.createElement(IcoClose, {
@@ -1600,19 +1628,12 @@ const FilterSelect = _ref3 => {
   };
   const onActionFilter = e => {
     setFilterState(e);
-    if (e.length >= 4) {
-      action(e);
-    }
   };
   return /*#__PURE__*/React.createElement("div", {
-    className: "select-filter"
+    className: style$6["select-filter"]
   }, /*#__PURE__*/React.createElement("div", {
-    className: "input-actions"
-  }, /*#__PURE__*/React.createElement(Button, {
-    cy: `SelectFilter${cy}`,
-    onClick: () => action(filterState),
-    title: title
-  }, filter)), /*#__PURE__*/React.createElement("input", {
+    className: style$6["input-actions"]
+  }), /*#__PURE__*/React.createElement("input", {
     type: "text",
     name: "filter-select",
     id: `id-filter-select`,
@@ -1621,12 +1642,16 @@ const FilterSelect = _ref3 => {
     placeholder: title,
     "data-cy": `SelectInputFilter${cy}`
   }), /*#__PURE__*/React.createElement("div", {
-    className: "input-actions"
+    className: style$6["input-actions"]
   }, /*#__PURE__*/React.createElement(Button, {
-    className: filterState === '' ? 'hidden' : '',
-    onClick: () => [cleanFilter(), action('')],
+    className: filterState === '' ? style$6.hidden : '',
+    action: () => [cleanFilter(), action('')],
     cy: `CleanFilter${cy}`
-  }, clean)));
+  }, clean), /*#__PURE__*/React.createElement(Button, {
+    cy: `SelectFilter${cy}`,
+    action: () => action(filterState),
+    title: title
+  }, filter)));
 };
 const verifySelectValue = e => {
   if (Array.isArray(e.value)) {
@@ -1637,6 +1662,71 @@ const verifySelectValue = e => {
     const sel = e.list.filter(v => v[e.val ? e.val : 'name'] === e.value);
     return sel.length ? sel[0] : {};
   }
+};
+
+var style$7 = {"form-textarea":"_em1cu","disabled":"_25-qn","check-box":"_nO4UB","textarea-actions":"_3ksVK","label-input":"_2tVsM","input-label-span-text":"_2s09D","required-label":"_3xE92","erro":"_22WYO","input-wrapper":"_12rag","form-select-box":"_2M3W8","success":"_3Irxn","campo-obrigatorio":"_3Q4yi","input-and-error-message-container":"_1NwME","ck":"_1BFQS","ck-editor__main":"_2PTjD","ck-editor__editable":"_1Gk0v","ck-editor__editable_inline":"_3dpNf","font-16":"_3qfRV","font-18":"_KoVpO"};
+
+const Textarea = _ref => {
+  var _required$erro;
+  let {
+    action = () => null,
+    actionBlur = () => null,
+    color = '',
+    required,
+    placeholder = '',
+    cy = "",
+    label = "",
+    name = "",
+    value = "",
+    left = null,
+    right = null
+  } = _ref;
+  const pattern = e => {
+    if (typeof (required === null || required === void 0 ? void 0 : required.pattern) === 'object') {
+      return JSON.stringify(required.pattern);
+    } else if (typeof (required === null || required === void 0 ? void 0 : required.pattern) === 'string') {
+      return required.pattern;
+    } else {
+      return '';
+    }
+  };
+  const validar = e => {
+    const v = require.length ? validarCampo(e) : {};
+    action(e.target, v);
+  };
+  const validarOnblur = e => {
+    const v = require.length ? validarCampo(e) : {};
+    if (actionBlur) actionBlur(e.target, v);
+  };
+  return /*#__PURE__*/React$1__default.createElement("div", {
+    className: `${style$7['form-textarea']} ${style$7[color]} ${required && (required.erro[name] ? style$7.erro : '')} `
+  }, label ? /*#__PURE__*/React$1__default.createElement("label", {
+    className: "label-input",
+    htmlFor: `id-${name}`,
+    "data-cy": `FormLabel${name}${cy}`
+  }, required && require.length ? /*#__PURE__*/React$1__default.createElement("span", {
+    className: "required-label"
+  }, "*") : '', /*#__PURE__*/React$1__default.createElement("span", {
+    className: "input-label-span-text"
+  }, label)) : null, /*#__PURE__*/React$1__default.createElement("div", {
+    className: `input-${name}-wrapper input-wrapper`
+  }, left ? /*#__PURE__*/React$1__default.createElement("div", {
+    className: "input-actions-left"
+  }, left) : null, /*#__PURE__*/React$1__default.createElement("textarea", {
+    "data-cy": `FormInput${name}${cy}`,
+    id: `id-${name}`,
+    name: name,
+    onChange: e => validar(e),
+    onBlur: e => validarOnblur(e),
+    pattern: pattern(),
+    placeholder: placeholder,
+    defaultValue: value
+  }), right ? /*#__PURE__*/React$1__default.createElement("div", {
+    className: "input-actions"
+  }, right) : null), required && (_required$erro = required.erro) !== null && _required$erro !== void 0 && _required$erro[name] ? /*#__PURE__*/React$1__default.createElement("span", {
+    className: "campo-obrigatorio",
+    "data-cy": `FormError${name}${cy}`
+  }, required.message) : null);
 };
 
 const adicionaZero = numero => {
@@ -1690,9 +1780,13 @@ const MaskValor = function (valor, language) {
   return v;
 };
 
+var style$8 = {"box-scrool":"_z-SRy","list-box":"_3z_PB","alguns":"_7aqLf","actions":"_acc2u","text-center":"_1nxMZ"};
+
 var List = function List(_ref) {
-  var header = _ref.header,
-    data = _ref.data,
+  var _ref$header = _ref.header,
+    header = _ref$header === void 0 ? [] : _ref$header,
+    _ref$data = _ref.data,
+    data = _ref$data === void 0 ? [] : _ref$data,
     _ref$listCustom = _ref.listCustom,
     listCustom = _ref$listCustom === void 0 ? function () {
       return null;
@@ -1708,55 +1802,62 @@ var List = function List(_ref) {
     setListState(data);
   }, [data]);
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: "box-scrool"
+    className: style$8["box-scrool"]
   }, /*#__PURE__*/React$1__default.createElement("table", {
-    className: "list-box",
+    className: style$8["list-box"],
     "data-cy": "Table" + cy
   }, /*#__PURE__*/React$1__default.createElement("thead", null, /*#__PURE__*/React$1__default.createElement("tr", {
     "data-cy": "Table" + cy + "Header"
-  }, header.map(function (header) {
+  }, header === null || header === void 0 ? void 0 : header.map(function (head) {
     return /*#__PURE__*/React$1__default.createElement("td", {
-      className: header.className,
-      key: header.column,
-      "data-cy": "Table" + cy + "HeaderColumn[" + header.column + "]"
-    }, header.text);
-  }))), /*#__PURE__*/React$1__default.createElement("tbody", null, data.length ? listState.map(function (container, i) {
+      className: style$8[head.className],
+      key: head.column,
+      "data-cy": "Table" + cy + "HeaderColumn[" + head.column + "]"
+    }, head.text);
+  }))), /*#__PURE__*/React$1__default.createElement("tbody", null, data.length ? listState === null || listState === void 0 ? void 0 : listState.map(function (container, i) {
     listCustom(container, i, data);
     return /*#__PURE__*/React$1__default.createElement("tr", {
       key: container.id ? container.id : i,
       "data-cy": "Table" + cy + "Row[" + i + "]"
-    }, header.map(function (header) {
+    }, header.map(function (head) {
       return /*#__PURE__*/React$1__default.createElement("td", {
-        className: header.className,
-        key: (container.id ? container.id : i) + "-" + header.column,
-        "data-cy": "Table" + cy + "Row[" + i + "]Column[" + header.column + "]"
-      }, container[header.column] ? container[header.column] : '');
+        className: style$8[head.className],
+        key: (container.id ? container.id : i) + "-" + head.column,
+        "data-cy": "Table" + cy + "Row[" + i + "]Column[" + head.column + "]"
+      }, container[head.column] ? container[head.column] : '');
     }));
   }) : /*#__PURE__*/React$1__default.createElement("tr", null, /*#__PURE__*/React$1__default.createElement("td", {
     colSpan: header === null || header === void 0 ? void 0 : header.length,
-    className: "text-center",
+    className: style$8["text-center"],
     "data-cy": "Table" + cy + "NoData"
   }, noData)))));
 };
 
+var style$9 = {"rootloading":"_3cwWl","box-loading":"_hMrLt","box-load":"_4GXZm","loader-default":"_13IPM","spin":"_39_cD"};
+
 var Loading = function Loading(_ref) {
-  var _ref$title = _ref.title,
+  var _ref$type = _ref.type,
+    type = _ref$type === void 0 ? 'element' : _ref$type,
+    _ref$load = _ref.load,
+    load = _ref$load === void 0 ? false : _ref$load,
+    _ref$title = _ref.title,
     title = _ref$title === void 0 ? 'Carregando' : _ref$title,
     _ref$icon = _ref.icon,
     icon = _ref$icon === void 0 ? /*#__PURE__*/React$1__default.createElement("div", {
-      className: "loader-default",
+      className: style$9["loader-default"],
       "data-cy": "LoadingIcon"
     }) : _ref$icon;
-  return /*#__PURE__*/React$1__default.createElement(Portal, {
-    name: "loading"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "box-loading",
+  var loadingElement = /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$9["box-loading"],
     "data-cy": "LoadingContainer"
   }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "box-load"
+    className: style$9["box-load"]
   }, icon, title ? /*#__PURE__*/React$1__default.createElement("h5", {
     "data-cy": "LoadingText"
-  }, title) : null)));
+  }, title) : null));
+  return load ? type === 'full' ? /*#__PURE__*/React$1__default.createElement(Portal, {
+    name: style$9.rootloading
+  }, loadingElement) : loadingElement : null;
 };
 
 function _extends$1() {
@@ -2352,9 +2453,12 @@ function createBrowserHistory(props) {
 
 const history = createBrowserHistory();
 
+var style$a = {"menu":"_3lzcS","active":"_rlreD"};
+
 var Menu = function Menu(_ref) {
   var children = _ref.children,
-    data = _ref.data,
+    _ref$data = _ref.data,
+    data = _ref$data === void 0 ? [] : _ref$data,
     _ref$action = _ref.action,
     action = _ref$action === void 0 ? function () {
       return null;
@@ -2375,39 +2479,115 @@ var Menu = function Menu(_ref) {
     action(e);
   };
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: "menu",
+    className: style$a.menu,
     "data-cy": "Menu" + cy
   }, data && data.length ? data.map(function (item) {
     return /*#__PURE__*/React$1__default.createElement("button", {
       key: item.id,
-      className: isActive(item.go) ? 'active' : '',
+      className: isActive(item.go) ? style$a.active : '',
       onClick: function onClick() {
         return actionMenu(item);
       },
-      "data-cy": "MenuList" + item.id + "Optionclick" + cy
+      "data-cy": "MenuList" + item.id + "item" + cy
     }, /*#__PURE__*/React$1__default.createElement("span", {
       "data-cy": "MenuItem" + cy + "IconOrLabel"
     }, item.icon ? item.icon : null, " ", item.label));
   }) : null, children);
 };
 
+var style$b = {"rootmodal":"_1vXYG","box-modal":"_2iHFP","normal":"_3u2RD","fullscreen":"_31XZ3","modal-content":"_2ybJa","modal-header":"_3leV5","modal-actions":"_2NGDC","modal-close":"_3EL82","size-small":"_3Qv-O","size-medium":"_1WgqT","size-large":"_4K5Oy","size-large-full":"_17h-e"};
+
+const fullscreen = _ref => {
+  let {
+    title = '',
+    children,
+    closeText = 'Fechar',
+    close = () => null,
+    actions,
+    cy = ''
+  } = _ref;
+  return /*#__PURE__*/React$1__default.createElement("div", {
+    className: `${style$b[`box-modal`]} ${style$b.fullscreen}`,
+    "data-cy": `ModalFullScreenFullContainer${cy}`
+  }, /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b["modal-header"],
+    "data-cy": `ModalFullScreen${cy}Header`
+  }, title, actions ? /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b["modal-actions"],
+    "data-cy": `ModalFullScreen${cy}Actions`
+  }, /*#__PURE__*/React$1__default.createElement(Button, {
+    color: "secondary",
+    variant: "outline",
+    onClick: close,
+    cy: `ModalFullScreenClose${cy}`
+  }, closeText), actions) : null), /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b["modal-content"],
+    "data-cy": `Modal${cy}ContentContainer`
+  }, children));
+};
+
+const modalNormal = _ref => {
+  let {
+    title = '',
+    size = 'medium',
+    children,
+    closeText = 'Fechar',
+    close = () => null,
+    actions,
+    cy = ''
+  } = _ref;
+  return /*#__PURE__*/React$1__default.createElement("div", {
+    className: `${style$b[`box-modal`]} ${style$b.normal}`,
+    "data-cy": `Modal${cy}FullContainer`
+  }, /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b[`size-${size}`],
+    "data-cy": `Modal${size}${cy}Container`
+  }, /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b["modal-header"],
+    "data-cy": `Modal${size}${cy}Header`
+  }, /*#__PURE__*/React$1__default.createElement("div", null, title), /*#__PURE__*/React$1__default.createElement(Button, {
+    className: style$b["modal-close"],
+    onClick: close,
+    title: closeText,
+    cy: `Modal${size}${cy}Close`
+  }, /*#__PURE__*/React$1__default.createElement(IcoClose, {
+    cy: `Modal${cy}`
+  }))), /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b["modal-content"],
+    "data-cy": `Modal${size}${cy}ContentContainer`
+  }, children), actions ? /*#__PURE__*/React$1__default.createElement("div", {
+    className: style$b["modal-actions"],
+    "data-cy": `Modal${size}${cy}ActionsContainer`
+  }, /*#__PURE__*/React$1__default.createElement(Button, {
+    color: "secondary",
+    variant: "outline",
+    onClick: close,
+    cy: `Modal${size}${cy}Close`
+  }, closeText), actions) : null));
+};
+
 var Modal = function Modal(_ref) {
-  var title = _ref.title,
+  var _ref$title = _ref.title,
+    title = _ref$title === void 0 ? '' : _ref$title,
     children = _ref.children,
     _ref$open = _ref.open,
     open = _ref$open === void 0 ? false : _ref$open,
-    close = _ref.close,
+    _ref$close = _ref.close,
+    close = _ref$close === void 0 ? function () {
+      return null;
+    } : _ref$close,
     _ref$closeText = _ref.closeText,
     closeText = _ref$closeText === void 0 ? 'Fechar' : _ref$closeText,
     _ref$size = _ref.size,
     size = _ref$size === void 0 ? 'medium' : _ref$size,
     actions = _ref.actions,
-    cy = _ref.cy;
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
   if (!Array.isArray(children)) {
     children = [children];
   }
   return /*#__PURE__*/React$1__default.createElement(Portal, {
-    name: "modal"
+    name: style$b.rootmodal
   }, open ? size === 'fullscreen' ? fullscreen({
     title: title,
     open: open,
@@ -2428,90 +2608,36 @@ var Modal = function Modal(_ref) {
     cy: cy
   }) : null);
 };
-var fullscreen = function fullscreen(_ref2) {
-  var title = _ref2.title,
-    children = _ref2.children,
-    closeText = _ref2.closeText,
-    close = _ref2.close,
-    actions = _ref2.actions,
-    cy = _ref2.cy;
-  return /*#__PURE__*/React$1__default.createElement("div", {
-    className: "box-modal fullScreen",
-    "data-cy": "ModalFullScreenFullContainer" + cy
-  }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "modal-header",
-    "data-cy": "ModalFullScreen" + cy + "Header"
-  }, title, actions ? /*#__PURE__*/React$1__default.createElement("div", {
-    className: "modal-actions",
-    "data-cy": "ModalFullScreen" + cy + "Actions"
-  }, /*#__PURE__*/React$1__default.createElement(Button, {
-    className: "btn secondary normal",
-    onClick: close,
-    cy: "ModalFullScreenClose" + cy
-  }, closeText), actions) : null), /*#__PURE__*/React$1__default.createElement("div", {
-    className: "modal-content",
-    "data-cy": "Modal" + cy + "ContentContainer"
-  }, children));
-};
-var modalNormal = function modalNormal(_ref3) {
-  var title = _ref3.title,
-    children = _ref3.children,
-    size = _ref3.size,
-    closeText = _ref3.closeText,
-    close = _ref3.close,
-    actions = _ref3.actions,
-    cy = _ref3.cy;
-  return /*#__PURE__*/React$1__default.createElement("div", {
-    className: "box-modal",
-    "data-cy": "Modal" + cy + "FullContainer"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "size-" + size,
-    "data-cy": "Modal" + size + cy + "Container"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "modal-header",
-    "data-cy": "Modal" + size + cy + "Header"
-  }, title, /*#__PURE__*/React$1__default.createElement(Button, {
-    className: "modal-close",
-    onClick: close,
-    title: closeText,
-    cy: "Modal" + size + cy + "Close"
-  }, /*#__PURE__*/React$1__default.createElement(IcoClose, {
-    cy: "Modal" + cy
-  }))), /*#__PURE__*/React$1__default.createElement("div", {
-    className: "modal-content",
-    "data-cy": "Modal" + size + cy + "ContentContainer"
-  }, children), actions ? /*#__PURE__*/React$1__default.createElement("div", {
-    className: "modal-actions",
-    "data-cy": "Modal" + size + cy + "ActionsContainer"
-  }, /*#__PURE__*/React$1__default.createElement(Button, {
-    color: "secondary",
-    variant: "outline",
-    onClick: close,
-    cy: "Modal" + size + cy + "Close"
-  }, closeText), actions) : null));
-};
+
+var style$c = {"paginate-custom":"_1RtmS","paginate-info":"_2VCWj","page-item":"_ugg-N"};
 
 var textDefault = {
-  de: 'of',
-  paginas: 'pages',
-  itens: 'Registers',
   next: 'Next',
   before: 'Previous',
   reload: 'Update'
 };
-function Paginate(_ref) {
+var textDefaultInfo = '<<pageNumber>> of <<totalPages>> - <<totalElements>> Registers';
+var Paginate = function Paginate(_ref) {
   var _ref$data = _ref.data,
     data = _ref$data === void 0 ? {
       pageNumber: 0,
       totalPages: 1,
       totalElements: 0
     } : _ref$data,
-    action = _ref.action,
+    _ref$action = _ref.action,
+    action = _ref$action === void 0 ? function () {
+      return null;
+    } : _ref$action,
     _ref$text = _ref.text,
-    text = _ref$text === void 0 ? textDefault : _ref$text;
+    text = _ref$text === void 0 ? textDefault : _ref$text,
+    _ref$textInfo = _ref.textInfo,
+    textInfo = _ref$textInfo === void 0 ? textDefaultInfo : _ref$textInfo;
   var _useState = React$1.useState(String(data.pageNumber ? data.pageNumber : 1)),
     paginateTemp = _useState[0],
     setPaginateTemp = _useState[1];
+  var textInfoChange = function textInfoChange(e) {
+    return e.replace("<<pageNumber>>", data.pageNumber ? data.pageNumber + 1 : 1).replace("<<totalPages>>", data.totalPages ? data.totalPages : 0).replace("<<totalElements>>", data.totalElements ? data.totalElements : 0);
+  };
   var changePaginate = function changePaginate(event) {
     setPaginateTemp(event.target.value);
   };
@@ -2528,16 +2654,16 @@ function Paginate(_ref) {
     }
   };
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: "pagination-custom"
+    className: style$c['paginate-custom']
   }, /*#__PURE__*/React$1__default.createElement(Button, {
-    type: "btn circle",
+    type: "circle",
     color: "primary",
-    onClick: function onClick() {
+    action: function action() {
       return reloadPaginate(data.pageNumber - 1);
     },
     disabled: data.pageNumber === 0 ? true : false
   }, text.before), /*#__PURE__*/React$1__default.createElement("div", {
-    className: "page-item"
+    className: style$c['page-item']
   }, /*#__PURE__*/React$1__default.createElement("input", {
     type: "number",
     name: "paginate",
@@ -2546,23 +2672,23 @@ function Paginate(_ref) {
       return changePaginate(event);
     }
   }), /*#__PURE__*/React$1__default.createElement(Button, {
-    type: "btn circle",
+    type: "circle",
     color: "primary",
-    onClick: function onClick() {
+    action: function action() {
       return reloadPaginate();
     },
     disabled: data.totalElements === 0 ? true : false
   }, text.reload)), /*#__PURE__*/React$1__default.createElement(Button, {
-    type: "btn circle",
+    type: "circle",
     color: "primary",
-    onClick: function onClick() {
+    action: function action() {
       return reloadPaginate(data.pageNumber + 1);
     },
     disabled: data.pageNumber >= data.totalPages - 1 ? true : false
   }, text.next), /*#__PURE__*/React$1__default.createElement("span", {
-    className: "pagination-info"
-  }, (data.pageNumber ? data.pageNumber + 1 : 1) + " " + text.de + " " + (data.totalPages ? data.totalPages : 0) + " " + text.paginas, " - " + (data.totalElements ? data.totalElements : 0) + " " + text.itens));
-}
+    className: style$c['paginate-info']
+  }, textInfoChange(textInfo)));
+};
 
 var modalRight = function modalRight(_ref) {
   var Ref = _ref.Ref,
@@ -2594,13 +2720,21 @@ var modalRight = function modalRight(_ref) {
   }, Children));
 };
 
+var style$d = {"box-tab":"_3Ucym","tab-head":"_rLnx_","active":"_3dokk","tab-content":"_KaUED","custom-tab":"_3IBI3"};
+
 var Tab = function Tab(_ref) {
-  var data = _ref.data,
+  var _ref$data = _ref.data,
+    data = _ref$data === void 0 ? [] : _ref$data,
     _ref$tabSelect = _ref.tabSelect,
     tabSelect = _ref$tabSelect === void 0 ? '' : _ref$tabSelect,
-    actionTab = _ref.actionTab,
-    type = _ref.type,
-    cy = _ref.cy;
+    _ref$actionTab = _ref.actionTab,
+    actionTab = _ref$actionTab === void 0 ? function () {
+      return null;
+    } : _ref$actionTab,
+    _ref$type = _ref.type,
+    type = _ref$type === void 0 ? '' : _ref$type,
+    _ref$cy = _ref.cy,
+    cy = _ref$cy === void 0 ? '' : _ref$cy;
   var _useState = React$1.useState([]),
     tabState = _useState[0],
     setTabState = _useState[1];
@@ -2619,22 +2753,22 @@ var Tab = function Tab(_ref) {
     }
   }, [data]);
   return /*#__PURE__*/React$1__default.createElement("div", {
-    className: type === 'custom' ? 'custom-tab' : 'box-tab',
+    className: type === 'box' ? style$d['box-tab'] : style$d['custom-tab'],
     "data-cy": type + "Tab" + cy + "FullContainer"
   }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "tab-head",
+    className: style$d["tab-head"],
     "data-cy": type + "Tab" + cy + "Header"
   }, data === null || data === void 0 ? void 0 : data.map(function (e) {
     return /*#__PURE__*/React$1__default.createElement("div", {
       key: e.id,
-      className: e.id === tabStateId ? 'active' : '',
+      className: e.id === tabStateId ? style$d.active : '',
       onClick: function onClick() {
-        return [setTabStateId(e.id), setTabState(e.content), actionTab(e.id)];
+        return [setTabStateId(e.id), setTabState(e.content), actionTab(e)];
       },
       "data-cy": "Tab" + e.id + "ClickShow" + cy
     }, e.title);
   })), /*#__PURE__*/React$1__default.createElement("div", {
-    className: "tab-content",
+    className: style$d["tab-content"],
     "data-cy": type + "Tab" + cy + "ContentContainer"
   }, tabState));
 };
@@ -2701,6 +2835,7 @@ exports.RadioButton = RadioButton;
 exports.RemoveAlert = RemoveAlert;
 exports.Select = Select;
 exports.Tab = Tab;
+exports.Textarea = Textarea;
 exports.UseOutsideClick = UseOutsideClick;
 exports.adicionaZero = adicionaZero;
 exports.modalRight = modalRight;

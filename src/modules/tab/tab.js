@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import './tab.scss';
+import style from './tab.module.scss';
 
-export const Tab = ({ data, tabSelect = '', actionTab, type, cy}) => {
+export const Tab = ({ 
+  data=[], 
+  tabSelect = '', 
+  actionTab=()=> null, 
+  type='', 
+  cy=''
+}) => {
   const [tabState, setTabState] = useState([]);
   const [tabStateId, setTabStateId] = useState("");
   useEffect(() => {
@@ -19,21 +25,21 @@ export const Tab = ({ data, tabSelect = '', actionTab, type, cy}) => {
 
   return (
     <div 
-    className={type === 'custom' ? 'custom-tab' : 'box-tab'}
+    className={type === 'box' ? style['box-tab'] : style['custom-tab']}
     data-cy={`${type}Tab${cy}FullContainer`}
     >
       <div 
-      className="tab-head"
+      className={style["tab-head"]}
       data-cy={`${type}Tab${cy}Header`}
       >
         {data?.map((e) => (
           <div
             key={e.id}
-            className={e.id === tabStateId ? 'active' : ''}
+            className={e.id === tabStateId ? style.active : ''}
             onClick={() => [
               setTabStateId(e.id),
               setTabState(e.content),
-              actionTab(e.id),
+              actionTab(e),
             ]}
             data-cy={`Tab${e.id}ClickShow${cy}`}
           >
@@ -42,7 +48,7 @@ export const Tab = ({ data, tabSelect = '', actionTab, type, cy}) => {
         ))}
       </div>
       <div 
-      className="tab-content"
+      className={style["tab-content"]}
       data-cy={`${type}Tab${cy}ContentContainer`}
       >{tabState}</div>
     </div>

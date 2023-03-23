@@ -1,9 +1,10 @@
-import React, { ChangeEvent } from 'react';
+import React from 'react';
+import style from './checkbox.module.scss';
 
 export const Checkbox = ({
   options,
   action,
-  checked,
+  checked=[],
   label,
   name,
   type = 'checkbox',
@@ -38,10 +39,17 @@ export const Checkbox = ({
   };
 
   const checkedAction = (e) => {
+    console.log(e, 'checkedAction', checked);
     if (e !== undefined) {
+      let respost = {name, value: e}
+      if (options) {
       const resp = options ? (e ? veryfiCheck(e) : []) : e;
-      const fullResponse = {name: name, value: resp, type: type, id: cy }
-      action && action(e, fullResponse);
+      console.warn('resp', resp);
+      const fullResponse = {name, value: [...checked, ...resp], type: type, id: cy }
+      respost = fullResponse
+      }
+      console.log(respost, 'respost');
+      action && action(respost);
     }
   };
 
@@ -52,7 +60,8 @@ export const Checkbox = ({
       if (checked.length === 0) {
         return false;
       } else {
-        const verify = checked.filter((elem) => {
+        console.log(checked, 'checked');
+        const verify = checked?.filter((elem) => {
           return elem[optionValue] === e[optionValue] ? elem : null;
         });
 
@@ -69,23 +78,21 @@ export const Checkbox = ({
 
   return (
     <div
-      className={`form-box form-checkbox ${type} ${color} ${
-        disabled ? 'disabled' : ''
-      }`}
+      className={`${style[`form-checkbox`]} ${style[type]} ${style[color]} ${style[`${ disabled ? 'disabled' : ''}`]}`}
     >
       {label ? <label htmlFor={`id-${name}`} data-cy={`FormCheckbox${name}${cy}`}>{label}</label> : null}
       {options ? (
-        options.map((c, index) => {
+        options?.map((c, index) => {
           return (
-            <div key={`checkbox-${name}-${index}`} className={`${name}-wrapper`}>
+            <div key={`checkbox-${name}-${index}`} className={style[`${name}-wrapper`]}>
               <div
                 key={`${name}-${c[optionValue]}`}
-                className={`check-box ${veryfiChecked(c) ? 'checked' : ''}`}
+                className={`${style[`check-box`]} ${style[`${veryfiChecked(c) ? 'checked' : ''}`]}`}
                 onClick={() => checkedAction(!disabled ? c : null)}
                 data-cy={`FormCheckbox${name}Optionclick${c[optionValue]}${cy}`}
               >
                 <span
-                  className={type}
+                  className={style[type]}
                   style={
                     veryfiChecked(c) && (colorCustom || c.color)
                       ? {
@@ -105,12 +112,12 @@ export const Checkbox = ({
         })
       ) : (
         <div
-          className={`check-box ${checked ? 'checked' : ''}`}
+          className={`${style['check-box']} ${checked ? style.checked : ''}`}
           onClick={() => checkedAction(!disabled ? !checked : false)}
           data-cy={`FormCheckbox${name}Optionclick${cy}`}
         >
           <span
-            className={type}
+            className={style[type]}
             style={
               checked && colorCustom ? { backgroundColor: colorCustom } : {}
             }

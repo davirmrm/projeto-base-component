@@ -4,17 +4,18 @@ import { IcoClose, IcoSearch } from '../../icon/icon';
 import { validarCampo } from '../../validation/Validation';
 import Portal from '../../portal/portal';
 import { Button } from '../../index';
+import style from './select.module.scss';
 
 const chargeDefault = { max: 0, text: 'Mais itens', action: () => null };
 
 export const Select = ({
-  options,
-  action,
-  actionClose,
-  actionFilter,
-  selected,
-  label,
-  name,
+  options=[],
+  action=()=> null,
+  actionClose=()=> null,
+  actionFilter=()=> null,
+  selected=null,
+  label='',
+  name='',
   color = '',
   closeOnSelect = null,
   multiSelect = false,
@@ -25,8 +26,8 @@ export const Select = ({
   charge = chargeDefault,
   optionLabel = 'name',
   optionValue = 'id',
-  optionCustom,
-  labelCustom,
+  optionCustom='',
+  labelCustom='',
   required,
   cy,
   ...props
@@ -73,11 +74,11 @@ export const Select = ({
   }, [options]);
 
   const veryfiMultiSelect = (e) => {
-    const verify = selected.filter((elem) => {
+    const verify = selected?.filter((elem) => {
       return elem[optionValue] === e[optionValue] ? elem : null;
     });
 
-    const res = selected.filter((elem) => {
+    const res = selected?.filter((elem) => {
       return elem[optionValue] !== e[optionValue] ? elem : null;
     });
 
@@ -167,18 +168,18 @@ export const Select = ({
   return (
     <div
     {...props}
-      className={`form-box form-select-box ${color} ${
-        require && (required && (required.erro[name] ? 'erro' : ''))
+      className={`${style['form-select-box']}  ${style[color]} ${
+        require && (required && (required.erro[name] ? style.erro : ''))
       } `}
     >
       {label ? (
-        <label className="label-input" htmlFor={`id-${name}`} data-cy={`SelectBoxLabel${name}`}>
-          {require ? <span className='required-label'>*</span> : ''} {label}
+        <label className={style["label-input"]} htmlFor={`id-${name}`} data-cy={`SelectBoxLabel${name}`}>
+          {require ? <span className={style['required-label']}>*</span> : ''} {label}
         </label>
       ) : null}
       <div>
         <Button
-          className={`select-selected ${selectOpen ? 'open' : ''}`}
+          className={`${style['select-selected']} ${selectOpen ? style.open : ''}`}
           onClick={(e) =>
             openSelect({ elem: e, value: !disabled ? !selectOpen : false })
           }
@@ -190,8 +191,8 @@ export const Select = ({
           {selectOpen ? (
             <div
               ref={ref}
-              className={`select-box select-${name} ${
-                multiSelect ? 'multiselect' : ''
+              className={`${style['select-box']} ${style[`select-${name}`]} ${
+                multiSelect ? style.multiselect : ''
               }`}
               style={selectCoordinates}
             >
@@ -200,7 +201,7 @@ export const Select = ({
                   clean={filter.clean}
                   action={(e) => [
                     setSelectState(FilterAction(options, e)),
-                    actionFilter(options, e),
+                    actionFilter({options, value: String(e)}),
                   ]}
                   filter={filter.text}
                   title={filter.title}
@@ -212,9 +213,9 @@ export const Select = ({
               {multiSelect ? (
                 <div
                   data-cy={`MultiSelectContainer${cy}`}
-                  className={`select-all ${
+                  className={`${style['select-all']} ${
                     selected.length > 0 && selected.length === options.length
-                      ? 'selected'
+                      ? style.selected
                       : ''
                   }`}
                   onClick={() => [
@@ -222,15 +223,15 @@ export const Select = ({
                     closeOnSelect ? closeAction(selected) : null,
                   ]}
                 >
-                  <span className="checkelement" data-cy={`MultiSelectSpan${cy}`}></span>
+                  <span className={style.checkelement} data-cy={`MultiSelectSpan${cy}`}></span>
                   {textCustom[3]}
                 </div>
               ) : null}
 
-              <div className="select-options">
+              <div className={style["select-options"]}>
                 {!multiSelect && selectedItem ? (
                   <div
-                    className={selected === {} ? 'selected' : ''}
+                    className={selected === {} ? style.selected : ''}
                     onClick={(e) => [
                       selectAction(''),
                       closeOnSelect ? closeAction('') : null,
@@ -245,7 +246,7 @@ export const Select = ({
                   return (
                     <div
                       className={
-                        veryfiSelected(selectState[i]) ? 'selected' : ''
+                        veryfiSelected(selectState[i]) ? style.selected : ''
                       }
                       key={`${name}-${e[optionValue]}-${i}`}
                       onClick={(e) => [
@@ -255,7 +256,7 @@ export const Select = ({
                       data-cy={`CheckElementContainer[${i}]`}
                     >
                       {multiSelect ? (
-                        <span className="checkelement" data-cy={`CheckElementSpan[${i}]`}></span>
+                        <span className={style.checkelement} data-cy={`CheckElementSpan[${i}]`}></span>
                       ) : null}
                       {optionCustom ? optionCustom(e) : e[optionLabel]}
                     </div>
@@ -263,8 +264,8 @@ export const Select = ({
                 })}
                 {charge.max && !(selectState.length === charge.max) ? (
                   <Button
-                    className="btn primary normal block"
-                    onClick={charge.action}
+                    color='primary'
+                    action={charge.action}
                     title={charge.text}
                     cy={`Select${charge.text}`}
                   >
@@ -278,7 +279,7 @@ export const Select = ({
       </div>
 
       {required?.erro?.[name] ? (
-        <span className="campo-obrigatorio" data-cy="MandatorySelectFieldSpan">{required.message}</span>
+        <span className={style["campo-obrigatorio"]} data-cy="MandatorySelectFieldSpan">{required.message}</span>
       ) : null}
     </div>
   );
@@ -289,7 +290,7 @@ export const FilterAction = (d, e, n = 'name') => {
 };
 
 export const FilterSelect = ({
-  action = (params) => null,
+  action = () => null,
   title = 'Filtrar',
   cy,
   clean = <IcoClose cy={`Filter${cy}`}/>,
@@ -301,16 +302,14 @@ export const FilterSelect = ({
   };
   const onActionFilter = (e) => {
     setFilterState(e);
-    if (e.length >= 4) {
-      action(e);
-    }
+    // if (e.length >= 4) {
+    //   action(e);
+    // }
   };
   return (
-    <div className="select-filter">
-      <div className="input-actions">
-        <Button cy={`SelectFilter${cy}`}onClick={() => action(filterState)} title={title}>
-          {filter}
-        </Button>
+    <div className={style["select-filter"]}>
+      <div className={style["input-actions"]}>
+        
       </div>
       <input
         type="text"
@@ -321,13 +320,16 @@ export const FilterSelect = ({
         placeholder={title}
         data-cy={`SelectInputFilter${cy}`}
       />
-      <div className="input-actions">
+      <div className={style["input-actions"]}>
         <Button
-          className={filterState === '' ? 'hidden' : ''}
-          onClick={() => [cleanFilter(), action('')]}
+          className={filterState === '' ? style.hidden : ''}
+          action={() => [cleanFilter(), action('')]}
           cy={`CleanFilter${cy}`}
         >
           {clean}
+        </Button>
+        <Button cy={`SelectFilter${cy}`} action={() => action(filterState)} title={title}>
+          {filter}
         </Button>
       </div>
     </div>

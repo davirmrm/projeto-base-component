@@ -1,17 +1,36 @@
-#root-modal {
+#rootmodal {
   position: fixed;
   top: 0px;
   left: 0px;
   width: 100%;
   .box-modal {
-    background-color: var(--modal-bgo);
-  
     display: flex;
     height: 100vh;
-    overflow: auto;
-    padding: 10px 0 20px 0;
-    width: 100%;
+    
+    &.normal {
+      background-color: var(--modal-bgo);
+    
+      overflow: auto;
+      padding: 10px 0 20px 0;
+      width: 100%;
+    }
+    
+    &.fullscreen {
+      background-color: var(--modal-bg);
+      border: 1px solid var(--modal-bgh);
+      color: var(--modal-color);
+      border-radius: 0px;
+      padding: 0;
+      width: 100vw;
+      flex-direction: column;
+
+      .modal-content {
+        overflow: auto;
+        height: calc(100% - 60px);
+      }
+    }
   }
+  
   [class*='size-'] {
     background-color: var(--modal-bg);
     border: 1px solid var(--modal-bgh);
@@ -98,3 +117,5 @@
     max-width: 90%;
   }
 }
+
+

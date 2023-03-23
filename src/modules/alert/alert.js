@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Portal from '../portal/portal';
-import './alert.scss';
+import style from'./alert.module.scss';
 
 import { IcoClose } from '../icon/icon';
 import { RemoveAlert } from './actions';
@@ -13,7 +13,7 @@ export const Alert = () =>{
   const alerts = useSelector((state) => state.alerts);
 
   return (
-    <Portal name="alert">
+    <Portal name={style.rootalert}>
     <>
       {alerts?.map((alert) => {
         setTimeout(
@@ -23,10 +23,10 @@ export const Alert = () =>{
           alert.time ? alert.time : 3000
         );
         return (
-          <div key={alert.id} className={`box-alert alert-${alert.type}`} data-cy={`Alert${alert.id}`}>
+          <div key={alert.id} className={`${style['box-alert']} ${style[alert.type]}`} data-cy={`Alert${alert.id}`}>
             <div dangerouslySetInnerHTML={{ __html: alert.mensage }} data-cy={`Alert${alert.id}Message`}></div>
             <Button
-              className="alert-close"
+              className={style.close}
               action={() => dispatch(RemoveAlert(alert.id))}
               cy={`Alert${alert.id}Close`}
             >

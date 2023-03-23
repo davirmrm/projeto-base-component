@@ -1,11 +1,10 @@
 import React from 'react';
 import { validarCampo } from '../../validation/Validation';
-import style from './input.module.scss';
+import style from './textarea.module.scss';
 
-export const Input = ({
+export const Textarea = ({
   action = () => null,
   actionBlur = () => null,
-  type = 'text',
   color = '',
   required,
   placeholder = '',
@@ -14,8 +13,7 @@ export const Input = ({
   name = "",
   value= "",
   left=null,
-  right=null,
-  ...props
+  right=null
 }) => {
   if (required){
     const require = Object.keys(required);
@@ -43,33 +41,33 @@ export const Input = ({
 
   return (
     <div
-      className={`${style[`form-input`]} ${style[color]} ${required && (required.erro[name] ? style.erro : '')}`}
+      className={`${style['form-textarea']} ${style[color]} ${
+        required && (required.erro[name] ? style.erro : '')
+      } `}
     >
       {label ? (
-        <label className={style["label-input"]} htmlFor={`id-${name}`} data-cy={`FormLabel${name}${cy}`}>
+        <label className="label-input" htmlFor={`id-${name}`} data-cy={`FormLabel${name}${cy}`}>
           {required && require.length ? <span className='required-label'>*</span> : ''} 
-          <span className={style['input-label-span-text']}>{label}</span>
+          <span className='input-label-span-text'>{label}</span>
         </label>
       ) : null}
 
-      <div className={`${style[`input-${name}-wrapper`] } ${style[`input-wrapper`] }`}>
-        {left ? <div className={style["input-actions-left"]}>{left}</div> : null}
-        <input
-          {...props}
+      <div className={`input-${name}-wrapper input-wrapper`}>
+        {left ? <div className="input-actions-left">{left}</div> : null}
+        <textarea
           data-cy={`FormInput${name}${cy}`}
           id={`id-${name}`}
-          type={type}
           name={name}
-          value={value}
           onChange={(e) => validar(e)}
           onBlur={(e) => validarOnblur(e)}
           pattern={pattern('')}
           placeholder={placeholder}
+          defaultValue={value}
         />
-        {right ? <div className={style["input-actions"]}>{right}</div> : null}
+        {right ? <div className="input-actions">{right}</div> : null}
       </div>
       {required && required.erro?.[name] ? (
-        <span className={style["campo-obrigatorio"]} data-cy={`FormError${name}${cy}`}>{required.message}</span>
+        <span className="campo-obrigatorio" data-cy={`FormError${name}${cy}`}>{required.message}</span>
       ) : null}
     </div>
   );

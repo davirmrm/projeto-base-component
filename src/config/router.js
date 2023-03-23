@@ -10,6 +10,7 @@ export default () => {
     <Router history={history}>
       <Switch>
         <Route exact path='/' component={components} />
+        <Route exact path='/Home' component={components} />
       </Switch>
     </Router>
   )

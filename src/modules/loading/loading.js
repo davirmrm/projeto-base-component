@@ -1,19 +1,28 @@
 import React from 'react';
 import Portal from '../portal/portal';
-import './loading.scss';
+import style from './loading.module.scss';
 
 export const Loading = ({
+  type = 'element',
+  load = false,
   title = 'Carregando',
-  icon = <div className="loader-default" data-cy="LoadingIcon"></div>,
+  icon = <div className={style["loader-default"]} data-cy="LoadingIcon"></div>,
 }) => {
-  return (
-    <Portal name="loading">
-      <div className="box-loading" data-cy="LoadingContainer">
-        <div className="box-load">
-          {icon}
-          {title ? <h5 data-cy="LoadingText">{title}</h5> : null}
-        </div>
+  const loadingElement = (
+    <div className={style["box-loading"]} data-cy="LoadingContainer">
+      <div className={style["box-load"]}>
+        {icon}
+        {title ? <h5 data-cy="LoadingText">{title}</h5> : null}
       </div>
-    </Portal>
-  );
+    </div>
+  )
+  return load ? 
+  type === 'full' ? 
+    ( 
+      <Portal name={style.rootloading}>
+        {loadingElement}
+      </Portal>
+    )
+    : loadingElement
+  : null
 };
